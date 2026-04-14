@@ -220,7 +220,6 @@ Confidence Interval = Projected Balance - Margin or Projected Balance + Margin
 
 |Theory / Concept|Application in Platform|Real-World Relevance|
 |----------------|-----------------------|--------------------|
-
 |Revenue Recognition (HKFRS 15)|Insurance revenue recognized when service provided|Compliant with international standards|
 |Matching Principle (HKFRS 17)|CSM amortization over coverage period|Expenses matched to revenue recognition|
 |Accrual Basis (HKFRS 17)|LIC for incurred but unpaid claims|Accurate period financial reporting|
