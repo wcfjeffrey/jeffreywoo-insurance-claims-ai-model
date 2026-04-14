@@ -1,0 +1,13 @@
+Reference,Customer,Status,Risk Score,Amount,Currency,Submitted Date
+CLM-2026-0100,Dana Lee,draft,5.00,3500.00,HKD,12 Apr 2026
+CLM-2026-0101,Dana Lee,submitted,25.00,45000.00,HKD,12 Apr 2026
+CLM-2026-0102,Dana Lee,under_review,55.00,125000.00,HKD,12 Apr 2026
+CLM-2026-0103,Dana Lee,escalated,85.00,350000.00,HKD,12 Apr 2026
+CLM-2026-0104,Dana Lee,approved,15.00,28000.00,HKD,12 Apr 2026
+CLM-2026-0105,Dana Lee,rejected,65.00,15000.00,HKD,12 Apr 2026
+CLM-2026-0106,Dana Lee,payment_pending,35.00,85000.00,USD,12 Apr 2026
+CLM-2026-0107,Dana Lee,paid,10.00,12000.00,HKD,12 Apr 2026
+CLM-2026-0108,Dana Lee,under_review,75.00,750000.00,HKD,12 Apr 2026
+CLM-2026-0109,Dana Lee,submitted,20.00,2500.00,USD,12 Apr 2026
+CLM-2026-0110,Dana Lee,draft,45.00,180000.00,HKD,12 Apr 2026
+CLM-2026-0111,Dana Lee,under_review,60.00,32000.00,HKD,12 Apr 2026

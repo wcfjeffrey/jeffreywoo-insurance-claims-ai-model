@@ -1,0 +1,202 @@
+
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>AI Risk Assessment Report</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+            line-height: 1.6;
+          }
+          h1 {
+            color: #1a237e;
+            border-bottom: 2px solid #1a237e;
+            padding-bottom: 10px;
+          }
+          h2 {
+            color: #283593;
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+          }
+          h3 {
+            color: #1a237e;
+            margin-top: 20px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+          }
+          th {
+            background: #1a237e;
+            color: white;
+            padding: 10px;
+            text-align: left;
+          }
+          td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+          }
+          .summary-card {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+          }
+          .risk-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+          }
+          .risk-high {
+            border-left-color: #c62828;
+          }
+          .risk-medium {
+            border-left-color: #f57c00;
+          }
+          .risk-low {
+            border-left-color: #2e7d32;
+          }
+          .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+          }
+          .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+          }
+          .badge-critical { background: #ffebee; color: #c62828; }
+          .badge-high { background: #fff3e0; color: #f57c00; }
+          .badge-medium { background: #fff9c4; color: #f9a825; }
+          .badge-low { background: #e8f5e9; color: #2e7d32; }
+          .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+          }
+          .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          }
+          .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1976d2;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>🤖 AI Risk Assessment Report</h1>
+        <p>Generated: 4/14/2026, 1:02:09 PM | Report ID: AI-1776142929388</p>
+        
+        <div class="summary-card">
+          <h2 style="color: white; margin-top: 0;">Executive Summary</h2>
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div>
+              <div style="font-size: 12px; opacity: 0.8;">Overall Enterprise Risk Score</div>
+              <div style="font-size: 48px; font-weight: bold;">45%</div>
+              <div class="badge badge-medium">
+                🟡 Medium Risk Level
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 12px; opacity: 0.8;">Total Claims</div>
+              <div style="font-size: 32px; font-weight: bold;">10</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; opacity: 0.8;">High Risk Claims</div>
+              <div style="font-size: 32px; font-weight: bold; color: #ff7043;">2</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; opacity: 0.8;">Estimated Exposure</div>
+              <div style="font-size: 24px; font-weight: bold;">HK$1,444,500.00</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; opacity: 0.8;">Fraud Probability</div>
+              <div style="font-size: 24px; font-weight: bold;">20.0%</div>
+            </div>
+          </div>
+        </div>
+        
+        <h2>Risk Distribution</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div>High Risk</div>
+            <div class="stat-value" style="color: #c62828;">2</div>
+            <div>20.0% of total</div>
+          </div>
+          <div class="stat-card">
+            <div>Medium Risk</div>
+            <div class="stat-value" style="color: #f57c00;">3</div>
+            <div>30.0% of total</div>
+          </div>
+          <div class="stat-card">
+            <div>Low Risk</div>
+            <div class="stat-value" style="color: #2e7d32;">5</div>
+            <div>50.0% of total</div>
+          </div>
+        </div>
+        
+        <h2>Top Risk Factors</h2>
+        <table>
+          <thead>
+            <tr><th>Risk Factor</th><th>Impact Score</th><th>Description</th><th>Priority</th></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>High Risk Claims</td>
+                <td><span class="badge badge-medium">20%</span></td>
+                <td>2 claims with fraud risk score >= 70%</td>
+                <td>Low</td>
+              </tr>
+            
+              <tr>
+                <td>Claim Volume</td>
+                <td><span class="badge badge-medium">10%</span></td>
+                <td>10 total claims in system</td>
+                <td>Low</td>
+              </tr>
+            
+              <tr>
+                <td>Financial Exposure</td>
+                <td><span class="badge badge-critical">70%</span></td>
+                <td>Total exposure of HK$1,444,500</td>
+                <td>High</td>
+              </tr>
+            
+          </tbody>
+        </table>
+        
+        <h2>AI Recommendations</h2>
+        <div class="risk-card">
+          <ul>
+            <li>Review 2 high-risk claim(s) flagged for potential fraud</li><li>Continue standard monitoring of claims</li>
+          </ul>
+        </div>
+        
+        <div class="footer">
+          <p>This report is AI-generated based on claims data analysis.</p>
+          <p>JeffreyWoo Insurance Claims System | 2026</p>
+        </div>
+      </body>
+      </html>
+    
