@@ -25,10 +25,10 @@
 | Area | Implementation |
 |------|------------------|
 | **Role-based Access Control (RBAC)** | Customer, Claim Officer, Accounting Staff, Manager (JWT auth + route guards) |
+| **AI** | AI-driven claim validation, Rule-based fraud/coverage scoring; optional GPT for chat and natural-language claim filters |
 | **Claims Management** | Full CRUD operations for insurance claims | 
 | **Real-time Claim Status Tracking** | Draft → Submit → Review → Escalate → Approve/Reject → Payment Pipeline (supporting document uploads) |
-| **AI** | AI-driven claim validation, Rule-based fraud/coverage scoring; optional GPT for chat and natural-language claim filters |
-| **Accounting** | CSM (Contractual Service Margin) amortization calculator, payout calculation (tax/FX hooks), cash-flow forecast with confidence intervals, LRC/LIC tracking, risk adjustment, ledger sync stub (SAP/Oracle-style), ROI summary |
+| **Accounting** | Accounting entires auto-generation, CSM (Contractual Service Margin) amortization calculator, payout calculation (tax/FX hooks), cash-flow forecast with confidence intervals, LRC/LIC tracking, risk adjustment, ledger sync stub (SAP/Oracle-style), ROI summary |
 | **Payment Processing** | Disbursement creation, HKMA payment submission integration (simulated) |
 | **Cash Flow Forecasting** | Predictive modeling with confidence intervals |
 | **Fraud Detection** | Predictive analytics with real-time machine learning (ML) based fraud risk scoring (0-100), anomaly detection, flags |
@@ -97,7 +97,6 @@ Amortization = (Opening CSM + Interest Accretion) × Coverage Percentage
 Closing CSM = Opening CSM + Interest Accretion - Amortization
 
 #### Coverage Units Allocation Methods:
-Here’s a simple table that lays out the four coverage unit allocation methods side by side for clarity:
 
 | Method                     | Pattern             | Typical Use Case                 | Explanation                                                                     |
 |----------------------------|---------------------|----------------------------------|---------------------------------------------------------------------------------|
@@ -451,8 +450,8 @@ Choose one of the following methods:
 
 Set `OPENAI_API_KEY` in `.env` for the conversational assistant and structured NL queries. For **ChatAnyWhere** and similar proxies, also set:
 
-`OPENAI_BASE_URL=https://api.chatanywhere.tech/v1` (for users in PRC)  
-`OPENAI_BASE_URL=https://api.chatanywhere.org/v1` (for users outside PRC)
+`OPENAI_BASE_URL=https://api.chatanywhere.tech/v1` (for users **in PRC**)  
+`OPENAI_BASE_URL=https://api.chatanywhere.org/v1` (for users **outside PRC**)
     
 (Include the `/v1` path.) Without a key, the API uses deterministic heuristics for NL query and a static hint for chat.
 
