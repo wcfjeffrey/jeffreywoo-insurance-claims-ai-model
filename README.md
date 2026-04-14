@@ -269,7 +269,7 @@ The AI generates comprehensive validation reports including:
 - Specific recommendations for claims handlers
 - Full audit trail for compliance
 
-#### 6. Vendor Extraction Intelligence
+### 6. Vendor Extraction Intelligence
 
 The AI intelligently extracts vendor information from unstructured documents:
 
@@ -278,7 +278,7 @@ The AI intelligently extracts vendor information from unstructured documents:
 "Tow company: ABC Towing" → Extracted & Verified  
 "Towing invoice attached" → Extracted from attached document
 
-#### 7. Cross-Reference Validation
+### 7. Cross-Reference Validation
 
 The AI maintains an internal vendor database and cross-references all extracted vendors:
 
@@ -286,7 +286,7 @@ The AI maintains an internal vendor database and cross-references all extracted 
 - Suspicious vendors - Businesses with complaints, low ratings, or missing licenses  
 - Unverified vendors - New businesses requiring manual verification
 
-#### 8. Real-time Search Integration
+### 8. Real-time Search Integration
 
 The AI performs live Google searches for each vendor:
 
