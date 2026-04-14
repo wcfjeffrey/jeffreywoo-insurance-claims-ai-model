@@ -18,7 +18,7 @@
 [![HKFRS 17](https://img.shields.io/badge/HKFRS%2017-Compliant-Blue)](https://www.hkicpa.org.hk/)
 [![License](https://img.shields.io/badge/License-Proprietary-Red)](LICENSE)
 
-**JeffreyWoo Insurance Claims** is an AI‑powered, enterprise‑grade insurance claims management platform that automates the entire workflow — from initial submission to final disbursement, integrating real‑time fraud detection, predictive risk analytics, and automated accounting workflows to deliver faster, smarter, and more transparent claims processing. Built for regulatory compliance under HKFRS 17, it ensures precise insurance‑contract accounting, robust audit trails, and seamless alignment with enterprise governance standards.
+**JeffreyWoo Insurance Claims** is an AI‑powered, enterprise‑grade insurance claims management platform that automates the entire workflow — from initial submission to final disbursement, integrating company background/document validation, real‑time fraud detection, predictive risk analytics, and automated accounting workflows to deliver faster, smarter, and more transparent claims processing. Built for regulatory compliance under HKFRS 17, it ensures precise insurance‑contract accounting, robust audit trails, and seamless alignment with enterprise governance standards.
 
 ## ✨ What It Does
 
