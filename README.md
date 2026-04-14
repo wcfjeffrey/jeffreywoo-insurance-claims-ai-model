@@ -602,7 +602,19 @@ jeffreywoo-insurance-claims/
   <img src="assets/JeffreyWooInsuranceClaims20.png" alt="JeffreyWooInsuranceClaims20" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims21.png" alt="JeffreyWooInsuranceClaims21" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims22.png" alt="JeffreyWooInsuranceClaims22" width="1200" height="600" />
-
+  <img src="assets/JeffreyWooInsuranceClaims23.png" alt="JeffreyWooInsuranceClaims23" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims24.png" alt="JeffreyWooInsuranceClaims24" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims25.png" alt="JeffreyWooInsuranceClaims25" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims26.png" alt="JeffreyWooInsuranceClaims26" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims27.png" alt="JeffreyWooInsuranceClaims27" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims28.png" alt="JeffreyWooInsuranceClaims28" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims29.png" alt="JeffreyWooInsuranceClaims29" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims30.png" alt="JeffreyWooInsuranceClaims30" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims31.png" alt="JeffreyWooInsuranceClaims31" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims32.png" alt="JeffreyWooInsuranceClaims32" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims33.png" alt="JeffreyWooInsuranceClaims33" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims34.png" alt="JeffreyWooInsuranceClaims34" width="1200" height="600" />
+  
 ## ⚠️ Disclaimer
 
 ### Demonstration Purpose Only
