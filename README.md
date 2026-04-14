@@ -579,6 +579,27 @@ jeffreywoo-insurance-claims/
 |High value draft|CLM-2026-0110|draft|HK$180,000|45%|
 |Delayed reporting|CLM-2026-0111|under review|HK$32,000|60%|
 
+#### Uploaded/Downloaded Documents of Test Cases
+
+|Item|Upload/Download|Test Category|Document|Document Content|
+|----|---------------|-------------|--------|----------------|
+|1|Upload|?|POL-AUTO-2026-001 Car Accident 2026-04-10.docx|Car Accident Report|
+|2|Download|?|ai_risk_report_2026-04-14.html|AI Risk Report (for all contracts)|
+|3|Download|?|ai_validation_report_2026-04-14.html|AI Validation Report (for a specific contract)|
+|4|Download|?|audit_report_2026-04-14.csv|Audit Report|
+|5|Download|?|audit_trail.xlsx|Audit Trail Report|
+|6|Download|?|claims_export_2026-04-14.csv|Claims Records|
+|7|Download|?|claims_register.xlsx|Claims Register|
+|8|Download|?|compliance_report.xlsx|Regulatory Compliance|
+|9|Download|?|executive_summary.pdf|Executive Dashboard|
+|10|Download|?|financial_summary.pdf|Financial Disbursement Report|
+|11|Download|?|general_ledger.xlsx|General Ledger|
+|12|Download|?|hkfrs17_compliance_report_2026-04-14.html|HKFRS 17 Compliance Report|
+|13|Download|?|hkfrs17_csm_report_HKFRS17-TEST-001_2026-04-14.html|HKFRS 17 CSM Report(HKFRS17-TEST-001)|
+|14|Download|?|hkfrs17_csm_report_HKFRS17-TEST-002_2026-04-14.html|HKFRS 17 CSM Report(HKFRS17-TEST-002)|
+|15|Download|?|hkfrs17_csm_report_HKFRS17-TEST-003_2026-04-14.html|HKFRS 17 CSM Report(HKFRS17-TEST-003)|
+|16|Download|?|regulatory_filing.pdf|Regulatory Filing|
+|17|Download|?|risk_assessment.pdf|Risk Assessment|
 
   <img src="assets/JeffreyWooInsuranceClaims1.png" alt="JeffreyWooInsuranceClaims1" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims2.png" alt="JeffreyWooInsuranceClaims2" width="1200" height="600" />
