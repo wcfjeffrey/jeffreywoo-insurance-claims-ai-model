@@ -579,7 +579,7 @@ jeffreywoo-insurance-claims/
 |High value draft|CLM-2026-0110|draft|HK$180,000|45%|
 |Delayed reporting|CLM-2026-0111|under review|HK$32,000|60%|
 
-#### Uploaded/Downloaded Documents of Test Cases
+### Uploaded/Downloaded Documents of Test Cases
 
 |Item|Upload/Download|Module|Document|Document Content|
 |----|---------------|-------------|--------|----------------|
@@ -601,73 +601,108 @@ jeffreywoo-insurance-claims/
 |16|Download|HKFRS 17 CSM Calculator|[hkfrs17_csm_report_HKFRS17-TEST-002_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/hkfrs17_csm_report_HKFRS17-TEST-002_2026-04-14.html)|HKFRS 17 CSM Report(HKFRS17-TEST-002)|
 |17|Download|HKFRS 17 CSM Calculator|[hkfrs17_csm_report_HKFRS17-TEST-003_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/hkfrs17_csm_report_HKFRS17-TEST-003_2026-04-14.html)|HKFRS 17 CSM Report(HKFRS17-TEST-003)|
 
-<ins>Login (English)</ins>
+### Screenshots of Samples
+
+**<ins>Login (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims1.png" alt="JeffreyWooInsuranceClaims1" width="1200" height="600" />
-<ins>Login (Chinese)</ins>
+  
+**<ins>Login (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims2.png" alt="JeffreyWooInsuranceClaims2" width="1200" height="600" />
-<ins>Dashboard (English)</ins>
+  
+**<ins>Dashboard (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims3.png" alt="JeffreyWooInsuranceClaims3" width="1200" height="600" />
-<ins>Dashboard (Chinese)</ins>
+  
+**<ins>Dashboard (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims4.png" alt="JeffreyWooInsuranceClaims4" width="1200" height="600" />
-<ins>Claims (English)</ins>
+  
+**<ins>Claims (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims5.png" alt="JeffreyWooInsuranceClaims5" width="1200" height="600" />
-<ins>Claims (Chinese)</ins>
+  
+**<ins>Claims (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims6.png" alt="JeffreyWooInsuranceClaims6" width="1200" height="600" />
-<ins>New Claim (English)</ins>
+  
+**<ins>New Claim (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims7.png" alt="JeffreyWooInsuranceClaims7" width="1200" height="600" />
-<ins>New Claim (Chinese)</ins>
+  
+**<ins>New Claim (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims8.png" alt="JeffreyWooInsuranceClaims8" width="1200" height="600" />
-<ins>New Claim Testing Sample Before Draft Creation (Car Accident) (English)</ins>
+  
+**<ins>New Claim Testing Sample Before Draft Creation (Car Accident) (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims9.png" alt="JeffreyWooInsuranceClaims9" width="1200" height="600" />
-<ins>New Claim Testing Sample Before Draft Creation (Car Accident) (Chinese)</ins>
+  
+**<ins>New Claim Testing Sample Before Draft Creation (Car Accident) (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims10.png" alt="JeffreyWooInsuranceClaims10" width="1200" height="600" />
-<ins>New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>
+  
+**<ins>New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims11.png" alt="JeffreyWooInsuranceClaims11" width="1200" height="600" />
-<ins>New Claim Testing Sample After Draft Creation (Car Accident) (Chinese)</ins>
+  
+**<ins>New Claim Testing Sample After Draft Creation (Car Accident) (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims12.png" alt="JeffreyWooInsuranceClaims12" width="1200" height="600" />
-<ins>Deletable New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>
+  
+**<ins>Deletable New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims13.png" alt="JeffreyWooInsuranceClaims13" width="1200" height="600" />
-<ins>Deletion Confirmation of New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>
+  
+**<ins>Deletion Confirmation of New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims14.png" alt="JeffreyWooInsuranceClaims14" width="1200" height="600" />
-<ins>AI Assistant (English)</ins>
+  
+**<ins>AI Assistant (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims15.png" alt="JeffreyWooInsuranceClaims15" width="1200" height="600" />
-<ins>AI Assistant (Chinese)</ins>
+  
+**<ins>AI Assistant (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims16.png" alt="JeffreyWooInsuranceClaims16" width="1200" height="600" />
-<ins>New Claim Before AI Validation (English)</ins>
+  
+**<ins>New Claim Before AI Validation (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims17.png" alt="JeffreyWooInsuranceClaims17" width="1200" height="600" />
-<ins>New Claim After AI Validation 1 (English)</ins>
+  
+**<ins>New Claim After AI Validation 1 (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims18.png" alt="JeffreyWooInsuranceClaims18" width="1200" height="1200" />
-<ins>New Claim After AI Validation 2 (English)</ins>
+
+**<ins>New Claim After AI Validation 2 (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims19.png" alt="JeffreyWooInsuranceClaims19" width="1200" height="1200" />
-<ins>Compliance (English)</ins>
+  
+**<ins>Compliance (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims20.png" alt="JeffreyWooInsuranceClaims20" width="1200" height="600" />
-<ins>Compliance (Chinese)</ins>
+  
+**<ins>Compliance (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims21.png" alt="JeffreyWooInsuranceClaims21" width="1200" height="600" />
-<ins>Reports (English)</ins>
+
+**<ins>Reports (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims22.png" alt="JeffreyWooInsuranceClaims22" width="1200" height="1000" />
-<ins>Reports (Chinese)</ins>
+
+**<ins>Reports (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims23.png" alt="JeffreyWooInsuranceClaims23" width="1200" height="1000" />
-<ins>Accounting (English)</ins>
+
+**<ins>Accounting (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims24.png" alt="JeffreyWooInsuranceClaims24" width="1200" height="600" />
-<ins>Accounting (Chinese)</ins>
+
+**<ins>Accounting (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims25.png" alt="JeffreyWooInsuranceClaims25" width="1200" height="600" />
-<ins>HKFRS 17 Compliance (English)</ins>
+
+**<ins>HKFRS 17 Compliance (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims26.png" alt="JeffreyWooInsuranceClaims26" width="1200" height="1000" />
-<ins>HKFRS 17 Compliance (Chinese)</ins>
+
+**<ins>HKFRS 17 Compliance (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims27.png" alt="JeffreyWooInsuranceClaims27" width="1200" height="1000" />
-<ins>HKFRS 17 CSM Calculator (English)</ins>
+
+**<ins>HKFRS 17 CSM Calculator (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims28.png" alt="JeffreyWooInsuranceClaims28" width="1200" height="600" />
-<ins>HKFRS 17 CSM Calculator (Chinese)</ins>
+
+**<ins>HKFRS 17 CSM Calculator (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims29.png" alt="JeffreyWooInsuranceClaims29" width="1200" height="600" />
-<ins>1st Testing Sample (Evenly Coverage Units Allocation Method) for HKFRS 17 CSM Calculator</ins>
+
+**<ins>1st Testing Sample (Evenly Coverage Units Allocation Method) for HKFRS 17 CSM Calculator</ins>**
   <img src="assets/JeffreyWooInsuranceClaims30.png" alt="JeffreyWooInsuranceClaims30" width="1200" height="600" />
-<ins>2nd Testing Sample (Weighted by Sum Assured Coverage Units Allocation Method) for HKFRS 17 CSM Calculator</ins>
+
+**<ins>2nd Testing Sample (Weighted by Sum Assured Coverage Units Allocation Method) for HKFRS 17 CSM Calculator</ins>**
   <img src="assets/JeffreyWooInsuranceClaims31.png" alt="JeffreyWooInsuranceClaims31" width="1200" height="600" />
-<ins>3rd Testing Sample (Expected Increasing Claims Coverage Units Allocation Method) for HKFRS 17 CSM Calculator</ins>
+
+**<ins>3rd Testing Sample (Expected Increasing Claims Coverage Units Allocation Method) for HKFRS 17 CSM Calculator</ins>**
   <img src="assets/JeffreyWooInsuranceClaims32.png" alt="JeffreyWooInsuranceClaims32" width="1200" height="600" />
-<ins>Audit Trail (English)</ins>
+
+**<ins>Audit Trail (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims33.png" alt="JeffreyWooInsuranceClaims33" width="1200" height="1200" />
-<ins>Audit Trail (Chinese)</ins>
+
+**<ins>Audit Trail (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims34.png" alt="JeffreyWooInsuranceClaims34" width="1200" height="1200" />
   
 ## ⚠️ Disclaimer
