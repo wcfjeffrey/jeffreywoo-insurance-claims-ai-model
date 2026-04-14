@@ -290,7 +290,7 @@ The AI maintains an internal vendor database and cross-references all extracted 
 
 The AI performs live Google searches for each vendor:
 
-**Search:** "Hudson Valley Towing Ossining NY"
+**Search:** "Hudson Valley Towing Ossining NY"  
 **Results:**
 - Google Maps listing with 4.3⭐ (85 reviews)
 - USDOT #4161787 verified
