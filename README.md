@@ -220,19 +220,20 @@ Confidence Interval = Projected Balance - Margin or Projected Balance + Margin
 
 |Theory / Concept|Application in Platform|Real-World Relevance|
 |----------------|-----------------------|--------------------|
-|Matching Principle|CSM amortization over coverage period|Expenses matched to revenue recognition|
+
 |Revenue Recognition (HKFRS 15)|Insurance revenue recognized when service provided|Compliant with international standards|
-|Prudence Concept|Risk adjustment for non-financial risk|Conservative liability valuation|
-|Materiality|Automated threshold-based approvals|Focuses review on significant claims|
-|Accrual Basis|LIC for incurred but unpaid claims|Accurate period financial reporting|
+|Matching Principle (HKFRS 17)|CSM amortization over coverage period|Expenses matched to revenue recognition|
+|Accrual Basis (HKFRS 17)|LIC for incurred but unpaid claims|Accurate period financial reporting|
 |Going Concern|Long-term CSM amortization and LRC/LIC modeling assume the platform/insurer will continue operating|Required for HKFRS 17; supports deferred profit recognition|
+|Prudence Concept (HKFRS 17)|Risk adjustment for non-financial risk|Conservative liability valuation|
+|Conservatism (extension of Prudence)|Real-time fraud detection and predictive risk analytics trigger early liability recognition|Recognizes potential losses immediately, gains only when certain|
 |Consistency|Standardized automated claims workflow and audit trail ensure same accounting treatment over time|Enhances comparability across reporting periods|
+|Full Disclosure|Audit trail captures all changes, approvals, and AI validation steps|Supports transparency in financial statements and regulatory reviews|
+|Objectivity|AI validation and automated thresholds reduce subjective manual adjustments|Increases verifiability of claim liabilities (LIC)|
+|Materiality|Automated threshold-based approvals|Focuses review on significant claims|
+|Periodicity (HKFRS 17)|LRC and LIC are calculated at reporting intervals (e.g., monthly/quarterly) using accrued data|Enables timely financial statements|
 |Economic Entity|Role-based access control separates claims handling by entity / department|Prevents inter-entity transaction mixing (e.g., reinsurance vs direct claims)|
 |Historical Cost|Claim payments recorded at actual transaction value; fraud detection flags abnormal deviations|Reliable, verifiable claim settlement amounts|
-|Full Disclosure|Audit trail captures all changes, approvals, and AI validation steps|Supports transparency in financial statements and regulatory reviews|
-|Conservatism (extension of Prudence)|Real-time fraud detection and predictive risk analytics trigger early liability recognition|Recognizes potential losses immediately, gains only when certain|
-|Objectivity|AI validation and automated thresholds reduce subjective manual adjustments|Increases verifiability of claim liabilities (LIC)|
-|Periodicity|LRC and LIC are calculated at reporting intervals (e.g., monthly/quarterly) using accrued data|Enables timely financial statements under HKFRS 17|
 
 ### Economic Theories
 
