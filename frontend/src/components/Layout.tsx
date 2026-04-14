@@ -77,7 +77,7 @@ export function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) => (isActive ? "active" : "")}
-              end={item.to === "/"}
+              end={item.to === "/" || item.to === "/claims"}
             >
               {t(`nav.${item.key}`)}
             </NavLink>
