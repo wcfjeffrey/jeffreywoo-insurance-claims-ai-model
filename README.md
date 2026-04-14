@@ -463,13 +463,7 @@ This app supports two distinct modes for interacting with claims data. Both use 
 |Error Handling|Can ask clarifying questions (e.g., “Which claim ID did you mean?”)|May fail silently or return ambiguous results if the query is vague|
 |Best For|Guided workflows, complex multi-step tasks, or users unfamiliar with data schemas|Fast, ad-hoc reporting and self-service analytics by technical users|
 |Latency|Higher (LLM + dialog + possible tool calls)|Lower (single LLM call + query execution)|
-|Example Use Cases|
-• Walking a customer through filing an appeal
-• Updating a claim status step-by-step  
-• Explaining coverage decisions	|
-• “Show top 10 claims by repair cost”  
-• “Count total losses by month”  
-• “Find claims with fraud score > 0.8|
+|Example Use Cases|Walking a customer through filing an appeal, Updating a claim status step-by-step, Explaining coverage decisions	| “Show top 10 claims by repair cost”, “Count total losses by month”, “Find claims with fraud score > 0.8”|
 
 ## 🤖 Tech Stack
 
