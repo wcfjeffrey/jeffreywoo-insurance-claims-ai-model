@@ -583,23 +583,23 @@ jeffreywoo-insurance-claims/
 
 |Item|Upload/Download|Module|Document|Document Content|
 |----|---------------|-------------|--------|----------------|
-|1|Upload|Claims|POL-AUTO-2026-001 Car Accident 2026-04-10.docx|[Car Accident Report](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/uploads/POL-AUTO-2026-001%20Car%20Accident%202026-04-10.docx)|
-|2|Download|Claims|claims_export_2026-04-14.csv|Claims Records|
-|3|Download|AI Assistant|ai_risk_report_2026-04-14.html|AI Risk Report (for all contracts)|
-|4|Download|AI Assistant|ai_validation_report_2026-04-14.html|AI Validation Report (for a specific contract)|
-|5|Download|Reports|claims_register.xlsx|Claims Register|
-|6|Download|Reports|executive_summary.pdf|Executive Dashboard|
-|7|Download|Reports|audit_trail.xlsx|Audit Trail Report|
-|8|Download|Reports|compliance_report.xlsx|Regulatory Compliance|
-|9|Download|Reports|regulatory_filing.pdf|Regulatory Filing|
-|10|Download|Reports|financial_summary.pdf|Financial Disbursement Report|
-|11|Download|Reports|general_ledger.xlsx|General Ledger|
-|12|Download|Reports|risk_assessment.pdf|Risk Assessment|
-|13|Download|Audit Trail|audit_report_2026-04-14.csv|Audit Report|
-|14|Download|HKFRS 17 Compliance|hkfrs17_compliance_report_2026-04-14.html|HKFRS 17 Compliance Report|
-|15|Download|HKFRS 17 CSM Calculator|hkfrs17_csm_report_HKFRS17-TEST-001_2026-04-14.html|HKFRS 17 CSM Report(HKFRS17-TEST-001)|
-|16|Download|HKFRS 17 CSM Calculator|hkfrs17_csm_report_HKFRS17-TEST-002_2026-04-14.html|HKFRS 17 CSM Report(HKFRS17-TEST-002)|
-|17|Download|HKFRS 17 CSM Calculator|hkfrs17_csm_report_HKFRS17-TEST-003_2026-04-14.html|HKFRS 17 CSM Report(HKFRS17-TEST-003)|
+|1|Upload|Claims|[POL-AUTO-2026-001 Car Accident 2026-04-10.docx](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/uploads/POL-AUTO-2026-001%20Car%20Accident%202026-04-10.docx)|Car Accident Report|
+|2|Download|Claims|[claims_export_2026-04-14.csv](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/audit_report_2026-04-14.csv)|Claims Records|
+|3|Download|AI Assistant|[ai_risk_report_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/ai_risk_report_2026-04-14.html)|AI Risk Report (for all contracts)|
+|4|Download|AI Assistant|[ai_validation_report_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/ai_validation_report_2026-04-14.html)|AI Validation Report (for a specific contract)|
+|5|Download|Reports|[claims_register.xlsx](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/claims_register.xlsx)|Claims Register|
+|6|Download|Reports|[executive_summary.pdf](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/executive_summary.pdf)|Executive Dashboard|
+|7|Download|Reports|[audit_trail.xlsx](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/audit_trail.xlsx)|Audit Trail Report|
+|8|Download|Reports|[compliance_report.xlsx](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/compliance_report.xlsx)|Regulatory Compliance|
+|9|Download|Reports|[regulatory_filing.pdf](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/regulatory_filing.pdf)|Regulatory Filing|
+|10|Download|Reports|[financial_summary.pdf](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/financial_summary.pdf)|Financial Disbursement Report|
+|11|Download|Reports|[general_ledger.xlsx](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/general_ledger.xlsx)|General Ledger|
+|12|Download|Reports|[risk_assessment.pdf](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/risk_assessment.pdf)|Risk Assessment|
+|13|Download|Audit Trail|[audit_report_2026-04-14.csv](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/audit_report_2026-04-14.csv)|Audit Report|
+|14|Download|HKFRS 17 Compliance|[hkfrs17_compliance_report_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/hkfrs17_compliance_report_2026-04-14.html)|HKFRS 17 Compliance Report|
+|15|Download|HKFRS 17 CSM Calculator|[hkfrs17_csm_report_HKFRS17-TEST-001_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/hkfrs17_csm_report_HKFRS17-TEST-001_2026-04-14.html)|HKFRS 17 CSM Report(HKFRS17-TEST-001)|
+|16|Download|HKFRS 17 CSM Calculator|[hkfrs17_csm_report_HKFRS17-TEST-002_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/hkfrs17_csm_report_HKFRS17-TEST-002_2026-04-14.html)|HKFRS 17 CSM Report(HKFRS17-TEST-002)|
+|17|Download|HKFRS 17 CSM Calculator|[hkfrs17_csm_report_HKFRS17-TEST-003_2026-04-14.html](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/downloads/hkfrs17_csm_report_HKFRS17-TEST-003_2026-04-14.html)|HKFRS 17 CSM Report(HKFRS17-TEST-003)|
 
 <ins>Login (English)</ins>
   <img src="assets/JeffreyWooInsuranceClaims1.png" alt="JeffreyWooInsuranceClaims1" width="1200" height="600" />
