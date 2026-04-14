@@ -583,7 +583,7 @@ jeffreywoo-insurance-claims/
 
 |Item|Upload/Download|Module|Document|Document Content|
 |----|---------------|-------------|--------|----------------|
-|1|Upload|Claims|POL-AUTO-2026-001 Car Accident 2026-04-10.docx|([Car Accident Report](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/uploads/POL-AUTO-2026-001%20Car%20Accident%202026-04-10.docx))|
+|1|Upload|Claims|POL-AUTO-2026-001 Car Accident 2026-04-10.docx|[Car Accident Report](https://github.com/wcfjeffrey/jeffreywoo-insurance-claims-ai-model/blob/main/uploads/POL-AUTO-2026-001%20Car%20Accident%202026-04-10.docx)|
 |2|Download|Claims|claims_export_2026-04-14.csv|Claims Records|
 |3|Download|AI Assistant|ai_risk_report_2026-04-14.html|AI Risk Report (for all contracts)|
 |4|Download|AI Assistant|ai_validation_report_2026-04-14.html|AI Validation Report (for a specific contract)|
