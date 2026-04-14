@@ -556,12 +556,12 @@ jeffreywoo-insurance-claims/
 
 ## 📋 Sample
 
-| Role| Email| Password| 
-|-----|------|---------|
-|👤 Customer|customer@jwinsurance.test|Password123|
-|👔 Claim Officer|officer@jwinsurance.test|Password123|
-|💰 Accounting Staff|accounting@jwinsurance.test|Password123|
-|👑 Manager|manager@jwinsurance.test|Password123|
+| Role| Email| Password| Accessable Modules| 
+|-----|------|---------|------------------|
+|👤 Customer|customer@jwinsurance.test|Password123|Dashboard, Claims, **New Claim**|
+|👔 Claim Officer|officer@jwinsurance.test|Password123|Dashboard, Claims, **AI Assistant, Compliance, Reports**|
+|💰 Accounting Staff|accounting@jwinsurance.test|Password123|Dashboard, Claims, AI Assistant, Compliance, Reports, **Accounting, HKFRS 17 Compliance, HKFRS 17 CSM Calculator**|
+|👑 Manager|manager@jwinsurance.test|Password123|Dashboard, Claims, AI Assistant, Compliance, Reports, Accounting, HKFRS 17 Compliance, HKFRS 17 CSM Calculator, **Audit Trail**|
 
 ### Test Scenarios
 |Scenario|Claim Reference|Status|Amount|Risk|
@@ -627,7 +627,7 @@ jeffreywoo-insurance-claims/
   <img src="assets/JeffreyWooInsuranceClaims12.png" alt="JeffreyWooInsuranceClaims12" width="1200" height="600" />
 <ins>Deletable New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>
   <img src="assets/JeffreyWooInsuranceClaims13.png" alt="JeffreyWooInsuranceClaims13" width="1200" height="600" />
-<ins>Confirmation of Deletable New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>
+<ins>Deletion Confirmation of New Claim Testing Sample After Draft Creation (Car Accident) (English)</ins>
   <img src="assets/JeffreyWooInsuranceClaims14.png" alt="JeffreyWooInsuranceClaims14" width="1200" height="600" />
 <ins>AI Assistant (English)</ins>
   <img src="assets/JeffreyWooInsuranceClaims15.png" alt="JeffreyWooInsuranceClaims15" width="1200" height="600" />
