@@ -597,8 +597,8 @@ jeffreywoo-insurance-claims/
   <img src="assets/JeffreyWooInsuranceClaims15.png" alt="JeffreyWooInsuranceClaims15" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims16.png" alt="JeffreyWooInsuranceClaims16" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims17.png" alt="JeffreyWooInsuranceClaims17" width="1200" height="600" />
-  <img src="assets/JeffreyWooInsuranceClaims18.png" alt="JeffreyWooInsuranceClaims18" width="1200" height="600" />
-  <img src="assets/JeffreyWooInsuranceClaimse19.png" alt="JeffreyWooInsuranceClaims19" width="1200" height="600" />
+  <img src="assets/JeffreyWooInsuranceClaims18.png" alt="JeffreyWooInsuranceClaims18" width="1200" height="1200" />
+  <img src="assets/JeffreyWooInsuranceClaims19.png" alt="JeffreyWooInsuranceClaims19" width="1200" height="1200" />
   <img src="assets/JeffreyWooInsuranceClaims20.png" alt="JeffreyWooInsuranceClaims20" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims21.png" alt="JeffreyWooInsuranceClaims21" width="1200" height="600" />
   <img src="assets/JeffreyWooInsuranceClaims22.png" alt="JeffreyWooInsuranceClaims22" width="1200" height="600" />
