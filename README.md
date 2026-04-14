@@ -520,7 +520,18 @@ Set `HKMA_OPENAPI_BASE_URL` and `HKMA_OPENAPI_TOKEN` to call a real endpoint; ot
 jeffreywoo-insurance-claims/
 ├── frontend/
 │   ├── src/
-│   │   ├── pages/                     # React pages (Dashboard, Claims, AI, Accounting, etc.)
+│   │   ├── pages/                     # User-facing React pages for UI rendering and user interaction
+│   │   │   ├── DashboardPage.tsx      # Real-time executive dashboard with KPIs and live claims activity
+│   │   │   ├── ClaimsListPage.tsx     # Searchable, sortable claims table with CSV export and delete
+│   │   │   ├── ClaimDetailPage.tsx    # Full claim view with workflow, documents, AI validation, and actions
+│   │   │   ├── NewClaimPage.tsx       # Multi-step claim intake with policy validation and document upload
+│   │   │   ├── AccountingPage.tsx     # Financial dashboard with cash flow forecast and HKMA payment submission
+│   │   │   ├── AIPage.tsx             # Conversational AI, natural language query, and predictive risk scoring
+│   │   │   ├── CompliancePage.tsx     # Regulatory event log, risk metrics, and deadline tracking (HKICPA/HKFRS)
+│   │   │   ├── AuditPage.tsx          # Immutable audit trail with filtering and export capabilities
+│   │   │   ├── ReportsPage.tsx        # Enterprise reports (Excel/PDF) for claims, finance, compliance, risk
+│   │   │   ├── HKFRS17Page.tsx        # Insurance contracts compliance with LRC/LIC and fulfillment of cashflows
+│   │   │   └── HKFRS17Calculator.tsx  # CSM amortization calculator with coverage units and journal entries
 │   │   ├── components/                # Reusable components (Layout, ProtectedRoute)
 │   │   ├── auth/                      # Authentication context and hooks
 │   │   ├── api.ts                     # API client
@@ -533,7 +544,7 @@ jeffreywoo-insurance-claims/
 │   │   ├── middleware/                # Auth and validation middleware
 │   │   ├── db/                        # Database migrations and pool
 │   │   ├── index.ts                   # Entry point
-│   │   ├── pages/                     # Main application pages
+│   │   ├── pages/                     # Server-side Node.js/Express pages for business logic, data processing, API services
 │   │   │   ├── DashboardPage.tsx      # Real-time executive dashboard with KPIs and live claims activity
 │   │   │   ├── ClaimsListPage.tsx     # Searchable, sortable claims table with CSV export and delete
 │   │   │   ├── ClaimDetailPage.tsx    # Full claim view with workflow, documents, AI validation, and actions
