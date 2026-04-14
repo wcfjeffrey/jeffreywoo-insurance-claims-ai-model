@@ -447,6 +447,30 @@ Status: ✅ VERIFIED
 - Policy info	←	SAP/Oracle (Policy Admin)
 - HKFRS 17 CSM	→	SAP/Oracle (GL)
 
+## 💬 Conversational Assistant vs. 🔍 Natural Language Claims Query
+
+This app supports two distinct modes for interacting with claims data. Both use natural language, but they serve different purposes and user experiences.
+
+|Feature|Conversational Assistant|Natural Language Claims Query|
+|------|-------------------------|-----------------------------|
+|Primary Goal|Engage in multi-turn dialogue to assist with claims-related tasks|Convert a single natural language question into a structured database query (e.g., SQL)|
+|Interaction Style|Multi-turn — remembers context across messages (e.g., user can ask follow-up questions)|Single-turn — one question → one answer (no memory of prior queries)|
+|Typical User|Claims adjusters, customer support agents, or policyholders needing guided assistance|Power users, analysts, or developers who want quick answers without writing SQL|
+|Example Input|“Show me my open claims. … Now filter those from last month.”|“How many claims were filed in NY last week with damage over $5,000?”|
+|Output Format|Conversational text, buttons, forms, or suggested actions|Tabular results, aggregated metrics, or a generated SQL query|
+|Backend Logic|Uses a Large Language Model (LLM) + dialog management + optional tool/API calls|Uses an LLM + schema-aware query generator (e.g., Text-to-SQL) + validation|
+|Context Retention|✅ Yes — maintains session history (e.g., user ID, previous filters, selected claim)|❌ No — each query is independent|
+|Error Handling|Can ask clarifying questions (e.g., “Which claim ID did you mean?”)|May fail silently or return ambiguous results if the query is vague|
+|Best For|Guided workflows, complex multi-step tasks, or users unfamiliar with data schemas|Fast, ad-hoc reporting and self-service analytics by technical users|
+|Latency|Higher (LLM + dialog + possible tool calls)|Lower (single LLM call + query execution)|
+|Example Use Cases|
+• Walking a customer through filing an appeal
+• Updating a claim status step-by-step  
+• Explaining coverage decisions	|
+• “Show top 10 claims by repair cost”  
+• “Count total losses by month”  
+• “Find claims with fraud score > 0.8|
+
 ## 🤖 Tech Stack
 
 |Layer|Technology|Version|Purpose|
