@@ -97,10 +97,14 @@ Amortization = (Opening CSM + Interest Accretion) × Coverage Percentage
 Closing CSM = Opening CSM + Interest Accretion - Amortization
 
 #### Coverage Units Allocation Methods:
-- **Evenly**: Equal per year
-- **Weighted by Sum Assured**: Bell-shaped curve (life insurance)
-- **Expected Claims**: Increasing pattern (property/casualty)
-- **Custom**: Manual entry by year
+Here’s a simple table that lays out the four coverage unit allocation methods side by side for clarity:
+
+| Method                     | Pattern             | Typical Use Case                 | Explanation                                                                     |
+|----------------------------|---------------------|----------------------------------|---------------------------------------------------------------------------------|
+| **Evenly**                 | Equal per year      | Standard policies                | Coverage units are distributed evenly across all years, regardless of risk.     |
+| **Weighted by Sum Assured**| Bell-shaped curve   | Life insurance                   | Allocation follows the insured amount, peaking mid-duration and tapering later. |
+| **Expected Claims**        | Increasing pattern  | Property/Casualty insurance      | Units align with projected claims, which usually rise over time.                |
+| **Custom**                 | Manual entry by year| Specialized or tailored products | Allocation is defined manually, year by year, for flexibility or compliance.    |
 
 ### Accounting Journal Entries Generated
 |Transaction|Debit|Credit|Business Meaning|
