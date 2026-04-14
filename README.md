@@ -235,10 +235,10 @@ The AI scans for 50+ fraud indicators across multiple dimensions:
 
 The AI performs live Google searches to verify vendor legitimacy:
 
-- Business existence check - Confirms the vendor operates at the claimed address  
-- Rating validation - Flags vendors with ratings below 3/5 stars  
-- License verification - Checks DOT numbers for towing companies, medical licenses for clinics  
-- Online presence - Verifies website, phone number, and business hours
+- **Business existence check** - Confirms the vendor operates at the claimed address  
+- **Rating validation** - Flags vendors with ratings below 3/5 stars  
+- **License verification** - Checks DOT numbers for towing companies, medical licenses for clinics  
+- **Online presence** - Verifies website, phone number, and business hours
 
 ### 4. Risk Scoring Algorithm
 
@@ -273,8 +273,11 @@ The AI generates comprehensive validation reports including:
 
 The AI intelligently extracts vendor information from unstructured documents:
 
-**Example:** The AI identifies towing companies even in non-standard formats
-"Towed By: Hudson Valley Towing & Recovery Inc." → Extracted & Verified
+**Example:**
+
+The AI identifies towing companies even in non-standard formats  
+
+"Towed By: Hudson Valley Towing & Recovery Inc." → Extracted & Verified  
 "Tow company: ABC Towing" → Extracted & Verified  
 "Towing invoice attached" → Extracted from attached document
 
@@ -282,15 +285,16 @@ The AI intelligently extracts vendor information from unstructured documents:
 
 The AI maintains an internal vendor database and cross-references all extracted vendors:
 
-- Verified vendors - Known legitimate businesses with positive ratings  
-- Suspicious vendors - Businesses with complaints, low ratings, or missing licenses  
-- Unverified vendors - New businesses requiring manual verification
+- **Verified vendors** - Known legitimate businesses with positive ratings  
+- **Suspicious vendors** - Businesses with complaints, low ratings, or missing licenses  
+- **Unverified vendors** - New businesses requiring manual verification
 
 ### 8. Real-time Search Integration
 
 The AI performs live Google searches for each vendor:
 
 **Search:** "Hudson Valley Towing Ossining NY"  
+
 **Results:**
 - Google Maps listing with 4.3⭐ (85 reviews)
 - USDOT #4161787 verified
