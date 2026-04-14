@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jw-insurance-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jw-insurance-api
+  template:
+    metadata:
+      labels:
+        app: jw-insurance-api
+    spec:
+      containers:
+        - name: api
+          image: jw-insurance-api:latest
+          ports:
+            - containerPort: 3001
+          env:
+            - name: PORT
+              value: "3001"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: jw-insurance-secrets
+                  key: database-url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jw-insurance-secrets
+                  key: jwt-secret
+            - name: CORS_ORIGIN
+              value: "https://claims.example.com"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jw-insurance-api
+spec:
+  selector:
+    app: jw-insurance-api
+  ports:
+    - port: 3001
+      targetPort: 3001

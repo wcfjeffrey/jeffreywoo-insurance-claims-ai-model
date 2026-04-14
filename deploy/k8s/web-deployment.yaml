@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jw-insurance-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jw-insurance-web
+  template:
+    metadata:
+      labels:
+        app: jw-insurance-web
+    spec:
+      containers:
+        - name: web
+          image: jw-insurance-web:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jw-insurance-web
+spec:
+  selector:
+    app: jw-insurance-web
+  ports:
+    - port: 80
+      targetPort: 80

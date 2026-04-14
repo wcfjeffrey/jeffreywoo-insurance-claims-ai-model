@@ -1,0 +1,76 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Dependencies
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist
+dist-ssr
+build
+*.tsbuildinfo
+
+# Local files
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+
+# Testing
+coverage
+.nyc_output
+*.test-results
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+
+# Cursor specific (if you have Cursor-specific files)
+.cursor/
+.cursorrules
+
+# TypeScript
+*.tsbuildinfo
+
+# Backup files
+*.bak
+*.backup
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Debug files
+*.log
+*.pid
+*.seed
+*.pid.lock

@@ -1,0 +1,18 @@
+{
+  "app": {
+    "title": "JeffreyWoo Insurance Claims"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "claims": "Claims",
+    "newClaim": "New claim",
+    "accounting": "Accounting",
+    "ai": "AI assistant",
+    "compliance": "Compliance",
+    "audit": "Audit trail",
+    "reports": "Reports",
+    "hkfrs17": "HKFRS 17 Compliance",
+    "hkfrs17Calculator": "HKFRS17 CSM Calculator",
+    "logout": "Sign out"
+  }
+}

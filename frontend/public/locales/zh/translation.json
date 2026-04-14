@@ -1,0 +1,18 @@
+{
+  "app": {
+    "title": "JeffreyWoo 保險理賠"
+  },
+  "nav": {
+    "dashboard": "儀表板",
+    "claims": "理賠申請",
+    "newClaim": "新建理賠",
+    "accounting": "會計",
+    "ai": "AI助手",
+    "compliance": "合規",
+    "audit": "審計追蹤",
+    "reports": "報告",
+    "hkfrs17": "HKFRS 17 合規",
+    "hkfrs17Calculator": "HKFRS 17 CSM 計算器",
+    "logout": "登出"
+  }
+}

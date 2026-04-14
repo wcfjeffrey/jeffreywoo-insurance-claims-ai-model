@@ -1,0 +1,28 @@
+{
+  "name": "insurance-claims-ai-model",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Full-stack app: Node API, React UI, PostgreSQL",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "start": "npm run start -w backend",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:seed": "npm run seed -w backend"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "marked": "^18.0.0",
+    "pdf-parse": "^2.4.5"
+  }
+}

@@ -1,0 +1,73 @@
+.app {
+  padding: 2rem 1.25rem 3rem;
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.app h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+}
+
+.cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  background: var(--card-bg, var(--bg));
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.card pre {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+  background: var(--code-bg);
+  color: var(--text-h);
+}
+
+.muted {
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.banner.error {
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--text-h);
+  margin-bottom: 1rem;
+}
+
+.hint {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    --card-bg: #1a1b22;
+  }
+}
