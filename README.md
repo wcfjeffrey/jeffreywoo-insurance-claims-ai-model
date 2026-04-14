@@ -654,10 +654,8 @@ jeffreywoo-insurance-claims/
 **<ins>New Claim Before AI Validation (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims17.png" alt="JeffreyWooInsuranceClaims17" width="1200" height="600" />
   
-**<ins>New Claim After AI Validation 1 (English)</ins>**
+**<ins>New Claim After AI Validation (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims18.png" alt="JeffreyWooInsuranceClaims18" width="1200" height="1200" />
-
-**<ins>New Claim After AI Validation 2 (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims19.png" alt="JeffreyWooInsuranceClaims19" width="1200" height="1200" />
   
 **<ins>Compliance (English)</ins>**
