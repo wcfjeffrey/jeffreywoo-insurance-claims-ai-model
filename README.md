@@ -580,6 +580,28 @@ jeffreywoo-insurance-claims/
 |Delayed reporting|CLM-2026-0111|under review|HK$32,000|60%|
 
 
+  <img src="assets/JeffreyWooFinance1.png" alt="JeffreyWooFinance1" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance2.png" alt="JeffreyWooFinance2" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance3.png" alt="JeffreyWooFinance3" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance4.png" alt="JeffreyWooFinance4" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance5.png" alt="JeffreyWooFinance5" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance6.png" alt="JeffreyWooFinance6" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance7.png" alt="JeffreyWooFinance7" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance8.png" alt="JeffreyWooFinance8" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance9.png" alt="JeffreyWooFinance9" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance10.png" alt="JeffreyWooFinance10" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance11.png" alt="JeffreyWooFinance11" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance12.png" alt="JeffreyWooFinance12" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance13.png" alt="JeffreyWooFinance13" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance14.png" alt="JeffreyWooFinance14" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance15.png" alt="JeffreyWooFinance15" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance16.png" alt="JeffreyWooFinance16" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance17.png" alt="JeffreyWooFinance17" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance18.png" alt="JeffreyWooFinance18" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance19.png" alt="JeffreyWooFinance19" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance20.png" alt="JeffreyWooFinance20" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance21.png" alt="JeffreyWooFinance21" width="1200" height="600" />
+  <img src="assets/JeffreyWooFinance22.png" alt="JeffreyWooFinance22" width="1200" height="600" />
 
 ## ⚠️ Disclaimer
 
