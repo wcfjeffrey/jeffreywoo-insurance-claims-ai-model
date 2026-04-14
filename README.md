@@ -190,6 +190,114 @@ Confidence Interval = Projected Balance - Margin or Projected Balance + Margin
 |Cost prediction|Cash flow forecasting|Better budgeting|
 |Reserve tracking|Automated LRC/LIC|Financial accuracy|
 
+## AI-driven Vendor Verification
+
+### 1. Multi-Source Vendor Verification
+
+The AI validates all service providers involved in a claim across multiple categories:
+
+|Category|Examples Verified|
+|--------|-----------------|
+|Auto Repair|Body shops, collision centers, mechanics|
+|Towing Services|Tow companies, recovery services, roadside assistance|
+|Medical Providers|Hospitals, clinics, chiropractors, physical therapists|
+|Property Services|Contractors, plumbers, electricians, roofers|
+|Rental Services|Car rental agencies, equipment rental|
+|Legal Services|Attorneys, public adjusters, appraisers|
+
+### 2. Fraud Detection Indicators
+
+The AI scans for 50+ fraud indicators across multiple dimensions:
+
+#### A. Document Analysis
+
+- Missing business licenses or certifications  
+- Suspicious keywords ("urgent payment", "cash only", "revised estimate")  
+- Future-dated documents  
+- Unreasonable pricing patterns  
+- Missing signatures or stamps
+
+#### B. Behavioral Analysis
+
+- Multiple claims from same policy within 90 days
+- Delayed reporting (claims filed >30 days after incident)
+- Pressure language in descriptions
+- Inconsistent claim narratives
+
+#### C. Financial Red Flags
+
+- Claim amounts exceeding industry benchmarks by 50%+
+- Repair costs exceeding vehicle value (total loss indicators)
+- Suspiciously high medical billings
+- Unusual billing patterns from providers
+
+### 3. Real-time Google Business Verification
+
+The AI performs live Google searches to verify vendor legitimacy:
+
+- Business existence check - Confirms the vendor operates at the claimed address  
+- Rating validation - Flags vendors with ratings below 3/5 stars  
+- License verification - Checks DOT numbers for towing companies, medical licenses for clinics  
+- Online presence - Verifies website, phone number, and business hours
+
+### 4. Risk Scoring Algorithm
+
+Each claim receives a comprehensive risk score from 0-100:
+
+|Score Range|Risk Level|Required Action|
+|-----------|----------|---------------|
+|0-39|Low Risk|Standard verification, proceed normally|
+|40-59|Medium Risk|Additional documentation required|
+|60-79|High Risk|Manager approval and enhanced due diligence|
+|80-100|Critical Risk|SIU referral, do not process payment|
+
+The score is calculated from four weighted components:
+
+- **Amount Risk** (25%) - Claim value vs. industry benchmarks
+- **Vendor Risk** (35%) - Unverified or suspicious vendors
+- **Document Risk** (20%) - Missing information or suspicious content
+- **Pattern Risk** (20%) - Behavioral red flags and claim history
+
+### 5. Automated Report Generation
+
+The AI generates comprehensive validation reports including:
+
+- Executive summary with risk assessment
+- Detailed vendor verification results with Google search evidence
+- Document analysis findings
+- Financial assessment and benchmarking
+- Specific recommendations for claims handlers
+- Full audit trail for compliance
+
+#### 6. Vendor Extraction Intelligence
+
+The AI intelligently extracts vendor information from unstructured documents:
+
+**Example:** The AI identifies towing companies even in non-standard formats
+"Towed By: Hudson Valley Towing & Recovery Inc." → Extracted & Verified
+"Tow company: ABC Towing" → Extracted & Verified  
+"Towing invoice attached" → Extracted from attached document
+
+#### 7. Cross-Reference Validation
+
+The AI maintains an internal vendor database and cross-references all extracted vendors:
+
+- Verified vendors - Known legitimate businesses with positive ratings  
+- Suspicious vendors - Businesses with complaints, low ratings, or missing licenses  
+- Unverified vendors - New businesses requiring manual verification
+
+#### 8. Real-time Search Integration
+
+The AI performs live Google searches for each vendor:
+
+**Search:** "Hudson Valley Towing Ossining NY"
+**Results:**
+- Google Maps listing with 4.3⭐ (85 reviews)
+- USDOT #4161787 verified
+- Physical address: 24 Congers Rd confirmed
+- Business hours and contact info matched
+Status: ✅ VERIFIED
+
 ## 📚 Theories Applied
 
 ### Insurance Theories
