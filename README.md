@@ -75,6 +75,16 @@
 |AI Validation Report|Document analysis + recommendations|Automated|
 |Natural Language Query|Search claims using plain English|90%+|
 
+## ⚡First Notice of Loss (FNOL) Triage Automation
+|Step|Manual Process|Automated Process|
+|----|--------------|-----------------|
+|1. Intake|Customer calls or emails — agent types details manually|Customer submits via web/mobile chat or email — NLP conversational assistant extracts key data (policy number, date, location, description) in real time|
+|2. Document collection|Agent requests photos/police report — customer faxes or emails|System auto‑requests documents via chat — document validation AI checks for completeness, clarity, and forgery|
+|3. Severity assessment|Agent reads description and decides if urgent	ML model scans text and images to classify severity (e.g., "Total Loss" vs. "Minor Dent") based on keywords, damage estimates, and historical patterns|
+|4. Fraud screening|Agent flags obvious red flags manually|Fraud detection ML runs silently in background — scores claim 0-100 for fraud risk (e.g., staged accident, inflated damages)|
+|5. Routing|Agent manually assigns to adjuster based on type/location|System auto‑routes low‑severity claims to fast‑track team, high‑fraud claims to special investigators, complex claims to senior adjusters|
+|6. Accounting prep|Finance team waits for claim approval to book entries|System generates HKFRS 17 compliant journal entries (CSM, loss component) immediately after triage — ready for ERP sync|
+
 ## 📐 HKFRS 17 Insurance Accounting
 
 ### Regulatory Context
