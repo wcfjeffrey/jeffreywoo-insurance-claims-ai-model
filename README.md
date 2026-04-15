@@ -694,8 +694,8 @@ jeffreywoo-insurance-claims/
 ├── deploy/
 │   └── k8s/                           # Kubernetes (K8s) examples
 └── docker-compose.yml                 # PostgreSQL container configuration
-└── downloads/                       # Document downloads storage
-└── uploads/                       # Document uploads storage
+└── downloads/                         # Document downloads storage
+└── uploads/                           # Document uploads storage
 ```
 
 ## 📋 Sample
