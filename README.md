@@ -763,7 +763,7 @@ The following table defines report access permissions for each role in the syste
 ### Test Scenarios
 |Scenario|Claim Reference|Status|Amount|Risk|
 |--------|---------------|------|------|----|
-|AI Validation & Risk Assessment|CLM-2026-0013|draft|HK$632,377|100%|
+|AI Validation & Risk Assessment|CLM-2026-0013|draft|HK$632,377|50%|
 |Low value draft|CLM-2026-0100|draft|HK$3,500|5%|
 |Submitted claim|CLM-2026-0101|submitted|HK$45,000|25%|
 |Under review|CLM-2026-0102|under review|HK$125,000|55%|
