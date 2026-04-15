@@ -961,12 +961,12 @@ Below is an **illustrative example** for deployment with CCB:
 
 ```
 # Abstraction layer (code depends on this)
-HKMA_API_BASE_URL=${CCB_API_BASE_URL}
-HKMA_API_TOKEN=${CCB_API_TOKEN}
+HKMA_OPENAPI_BASE_URL=${CCB_OPENAPI_BASE_URL}
+HKMA_OPENAPI_TOKEN=${CCB_OPENAPI_TOKEN}
 
 # Bank-specific mapping (deployment only)
-CCB_API_BASE_URL=https://api.ccb.com.hk/fps/v1    # Example only – obtain real URL from bank
-CCB_API_TOKEN=xxxxxx                              # Secret issued by the bank
+CCB_OPENAPI_BASE_URL=https://api.ccb.com.hk/fps/v1    # Example only – obtain real URL from bank
+CCB_OPENAPI_TOKEN=xxxxxx                              # Secret issued by the bank
 ```
 
 ### 5. Relevance to This App's Design
