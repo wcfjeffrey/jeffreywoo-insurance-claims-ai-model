@@ -672,40 +672,30 @@ jeffreywoo-insurance-claims/
 │   │   │   ├── HKFRS17Page.tsx        # Insurance contracts compliance with LRC/LIC and fulfillment of cashflows
 │   │   │   └── HKFRS17Calculator.tsx  # CSM amortization calculator with coverage units and journal entries
 │   │   ├── components/                # Reusable components (Layout, ProtectedRoute)
-│   │   ├── auth/                      # Authentication context and hooks
-│   │   ├── api.ts                     # API client
+│   │   ├── auth/                      # JWT authentication context and hooks for ERP/HKMA secure access
+│   │   ├── api.ts                     # API client including ERP/HKMA calls
 │   │   └── main.tsx                   # Entry point
-│   └── public/                        # Static assets and translations
+│   └── public/                        # Static assets and translations for ERP integration/HKMA gateway
 ├── backend/
-│   ├── src/
-│   │   ├── routes/                    # API routes (claims, auth, accounting, ai, compliance, etc.)
-│   │   ├── services/                  # Business logic (fraud detection, forecasting, etc.)
-│   │   ├── middleware/                # Auth and validation middleware
-│   │   ├── db/                        # Database migrations and pool
-│   │   ├── index.ts                   # Entry point
-│   │   ├── pages/                     # Server-side Node.js/Express pages for business logic, data processing, API services
-│   │   │   ├── DashboardPage.tsx      # Real-time executive dashboard with KPIs and live claims activity
-│   │   │   ├── ClaimsListPage.tsx     # Searchable, sortable claims table with CSV export and delete
-│   │   │   ├── ClaimDetailPage.tsx    # Full claim view with workflow, documents, AI validation, and actions
-│   │   │   ├── NewClaimPage.tsx       # Multi-step claim intake with policy validation and document upload
-│   │   │   ├── AccountingPage.tsx     # Financial dashboard with cash flow forecast and HKMA payment submission
-│   │   │   ├── AIPage.tsx             # Conversational AI, natural language query, and predictive risk scoring
-│   │   │   ├── CompliancePage.tsx     # Regulatory event log, risk metrics, and deadline tracking (HKICPA/HKFRS)
-│   │   │   ├── AuditPage.tsx          # Immutable audit trail with filtering and export capabilities
-│   │   │   ├── ReportsPage.tsx        # Enterprise reports (Excel/PDF) for claims, finance, compliance, risk
-│   │   │   ├── HKFRS17Page.tsx        # Insurance contracts compliance with LRC/LIC and fulfillment of cashflows
-│   │   │   └── HKFRS17Calculator.tsx  # CSM amortization calculator with coverage units and journal entries
-│   │   ├── components/                # Reusable components
-│   │   ├── auth/                      # Authentication logic
-│   │   ├── locales/                   # i18n translation files
-│   │   │   ├── en.json                # English translation file
-│   │   │   └── zh.json                # Chinese translation file
-│   │   ├── api.ts                     # API client
-│   │   └── main.tsx                   # Application entry point
-│   └── uploads/                       # Document uploads storage
+│   └── src/
+│       ├── routes/                    # API routes (dashboard, claims, accounting, ai, compliance, audit, reports, HKFRS 17, HKFRS 17 calculator, HKMA, auth, etc.)
+│       ├── services/                  # Business logic (audit, forecasting, HKFRS 17/HKMA compliance, claim analysis, fraud detection, Google Search, etc.)
+│       ├── middleware/                # JWT auth and validation middleware for ERP/HKMA submissions
+│       ├── db/                        # SQL database migrations and pool for ERP/HKMA reporting & audit traceability
+│       ├── index.ts                   # Entry point
+│       ├── pages/                     # Server-side Node.js/Express pages for business logic, data processing, API services (dashboard, claim list,
+│       │                                claim detail, new claim, accounting, ai, compliance, audit, reports, HKFRS 17, HKFRS 17 calculator, etc.)
+│       ├── components/                # Reusable components
+│       ├── auth/                      # Authentication logic
+│       ├── locales/                   # i18n translation files
+│       │   ├── en.json                # English translation file
+│       │   └── zh.json                # Chinese translation file
+│       └── main.tsx                   # Application entry point
 ├── deploy/
 │   └── k8s/                           # Kubernetes (K8s) examples
 └── docker-compose.yml                 # PostgreSQL container configuration
+└── downloads/                       # Document downloads storage
+└── uploads/                       # Document uploads storage
 ```
 
 ## 📋 Sample
