@@ -208,7 +208,7 @@ Confidence Interval = Projected Balance - Margin or Projected Balance + Margin
 |Cost prediction|Cash flow forecasting|Better budgeting|
 |Reserve tracking|Automated LRC/LIC|Financial accuracy|
 
-## AI-driven Vendor Verification
+## ⚖️ AI-driven Vendor Verification
 
 ### 1. Multi-Source Vendor Verification
 
@@ -777,7 +777,7 @@ The following table defines report access permissions for each role in the syste
 |High value draft|CLM-2026-0110|draft|HK$180,000|45%|
 |Delayed reporting|CLM-2026-0111|under review|HK$32,000|60%|
 
-### Uploaded/Downloaded Documents of Test Cases
+### 💻 Uploaded/Downloaded Documents of Test Cases
 
 |Item|Upload/Download|Module|Document|Document Content|
 |----|---------------|-------------|--------|----------------|
@@ -904,15 +904,15 @@ The following table defines report access permissions for each role in the syste
 **<ins>Audit Trail (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims34.png" alt="JeffreyWooInsuranceClaims34" width="1200" height="1200" />
 
-## Real Case: FWD Insurance x CCB (Asia) Open API Bancassurance
+## 🎯 Real Case: FWD Insurance x CCB (Asia) Open API Bancassurance
 
-This is Hong Kong's first successful case of a direct system connection between an insurer and a bank via Open API. It is the best real-life example you can use to illustrate the application of the FPS Open API in the insurance industry.
+This is Hong Kong's first successful case of a direct system connection between an insurer and a bank via Open API. It is the best real-life example for illustrating the application of the FPS Open API in the insurance industry for this app.
 
 ### 1. Partnership Background
 
 |Item|Details|
 |----|-------|
-|Partners|FWD + CCB (Asia)|
+|Partners|FWD Insurance + CCB (Asia)|
 |Partnership History|Strategic bancassurance partnership since 2007; signed a 10-year extension in May 2021|
 |Technology Foundation|Open API connecting both parties' systems, under the Open API initiative led by the Insurance Authority (IA) and the Hong Kong Monetary Authority (HKMA)|
 
@@ -924,7 +924,7 @@ This is Hong Kong's first successful case of a direct system connection between 
 |----|----------------|----------|
 |Premium Payment|Customer pays at bank branch|Bank and insurer systems are not connected|
 |Premium Confirmation|Bank staff manually notifies insurer|Time‑consuming and error‑prone|
-|Policy Activation|Waits for premium confirmation|Waiting time up to 3 days|
+|Policy Activation|Waits for premium confirmation|Waiting time up to ~3 days|
 
 #### After Open API (Adopting FPS Open API Standard)
 
@@ -948,14 +948,14 @@ This real-world case validates the abstraction design of `HKMA_OPENAPI_BASE_URL`
 |------------------|---------------|-----------------|
 |Standard Layer|Open API framework led by HKMA/IA|`HKMA_OPENAPI_BASE_URL` represents FPS standard|
 |Bank Layer|CCB (Asia) as Open Bank provides API|Maps to `CCB_OPENAPI_BASE_URL` at deployment|
-|Insurer Layer|FWD system reads data via API|My Claims System calls the API|
+|Insurer Layer|FWD system reads data via API|My app calls the API|
 
 **How It Works:**
 
 1. **Customer pays premium to CCB** → CCB system records the transaction  
 2. **FWD system queries CCB via API** to retrieve transaction details  
 3. **Premium receipt confirmed** → Policy activates same day  
-4. **Claims payout** → Also via API, achieving 37‑second settlement
+4. **Claims payout** → Achieving fast settlement via API
 
 ### 5. Relevance to This App's Design
 
@@ -964,6 +964,8 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 - **FWD does NOT connect directly to HKMA.** Instead, it connects to **CCB (Asia)'s API, which follows the HKMA FPS standard.**
 - This app adopts the **same abstraction design**: `HKMA` represents the **standard layer**, while deployment maps it to a specific bank (e.g., `CCB`).
 - This is precisely why this app **requires no core code changes when switching or adding banks** — as long as the bank follows the HKMA standard, seamless integration is possible.
+
+**Source:** [CCB (Asia) & FWD Innovative Bancassurance Experience](https://www.asia.ccb.com/hongkong/personal/insurance/life_insurance/openapi.html?cmpid=HKTCDTPSISTMG-LIFEINSAPI)
   
 ## ⚠️ Disclaimer
 
