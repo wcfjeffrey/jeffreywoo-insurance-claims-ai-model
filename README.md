@@ -130,9 +130,13 @@ Closing CSM = Opening CSM + Interest Accretion - Amortization
 |Disbursement Reference|Unique reference per payment|✅ Live|
 |Real-time Settlement|Faster Payment System (FPS) ready|✅ Architecture ready|
 
-⚠️ **Important:** This HKMA gateway integration is **optional and applicable only when** the insurer (or its bancassurance partner, e.g., a bank) needs to initiate real-time fund transfers (e.g., via FPS) to settle claims payouts directly to policyholders.
+⚠️ **Note:** This HKMA gateway integration is **optional and applicable only when** the insurer (or its bancassurance partner, e.g., a bank) needs to initiate real-time fund transfers (e.g., via FPS) to settle claims payouts directly to policyholders.
 
 For stand-alone insurance companies without direct bank payment integration, this module can be **disabled or run in simulation mode**. No HKMA notification is required for individual claim payments.
+
+**HKMA** in this app represents the standard and specification layer, not a direct connection to the HKMA. This is an abstraction design — as long as a bank follows the HKMA's FPS Open API standard, this app can seamlessly integrate with it without any core code changes.
+
+During actual deployment, we map this generic variable to bank‑specific names (e.g., CCB) via environment configuration. This ensures that even when we switch or add new partner banks, the core codebase remains completely unchanged.
 
 ### Cash Flow Forecasting
 
