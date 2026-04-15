@@ -957,6 +957,18 @@ This real-world case validates the abstraction design of `HKMA_OPENAPI_BASE_URL`
 3. **Premium receipt confirmed** → Policy activates same day  
 4. **Claims payout** → Achieving fast settlement via API
 
+Below is an **illustrative example** for deployment with CCB:
+
+```
+# Abstraction layer (code depends on this)
+HKMA_API_BASE_URL=${CCB_API_BASE_URL}
+HKMA_API_TOKEN=${CCB_API_TOKEN}
+
+# Bank-specific mapping (deployment only)
+CCB_API_BASE_URL=https://api.ccb.com.hk/fps/v1    # Example only – obtain real URL from bank
+CCB_API_TOKEN=xxxxxx                              # Secret issued by the bank
+```
+
 ### 5. Relevance to This App's Design
 
 This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_URL` in this app:
