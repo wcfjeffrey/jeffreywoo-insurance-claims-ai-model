@@ -797,7 +797,7 @@ jeffreywoo-insurance-claims/
   <img src="assets/JeffreyWooInsuranceClaims16.png" alt="JeffreyWooInsuranceClaims16" width="1200" height="600" />
 
 **<ins>AI Analysis Results from Coversational Assistant, Natural Language Claims Query & Predictive Risk Assessment (English)</ins>**
-  <img src="assets/JeffreyWooInsuranceClaims16a.png" alt="JeffreyWooInsuranceClaims16" width="1200" height="1000" />
+  <img src="assets/JeffreyWooInsuranceClaims16a.png" alt="JeffreyWooInsuranceClaims16a" width="1200" height="1200" />
   
 **<ins>New Claim Before AI Validation (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims17.png" alt="JeffreyWooInsuranceClaims17" width="1200" height="600" />
