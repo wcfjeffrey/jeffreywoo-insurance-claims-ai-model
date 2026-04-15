@@ -903,6 +903,67 @@ The following table defines report access permissions for each role in the syste
 
 **<ins>Audit Trail (Chinese)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims34.png" alt="JeffreyWooInsuranceClaims34" width="1200" height="1200" />
+
+## Real Case: FWD Insurance x CCB (Asia) Open API Bancassurance
+
+This is Hong Kong's first successful case of a direct system connection between an insurer and a bank via Open API. It is the best real-life example you can use to illustrate the application of the FPS Open API in the insurance industry.
+
+### 1. Partnership Background
+
+|Item|Details|
+|----|-------|
+|Partners|FWD + CCB (Asia)|
+|Partnership History|Strategic bancassurance partnership since 2007; signed a 10-year extension in May 2021|
+|Technology Foundation|Open API connecting both parties' systems, under the Open API initiative led by the Insurance Authority (IA) and the Hong Kong Monetary Authority (HKMA)|
+
+### 2. Business Pain Points & Technical Solution
+
+#### Before Open API (Traditional Bancassurance Process)
+
+|Step|Traditional Mode|Pain Point|
+|----|----------------|----------|
+|Premium Payment|Customer pays at bank branch|Bank and insurer systems are not connected|
+|Premium Confirmation|Bank staff manually notifies insurer|Time‑consuming and error‑prone|
+|Policy Activation|Waits for premium confirmation|Waiting time up to 3 days|
+
+#### After Open API (Adopting FPS Open API Standard)
+
+CCB (Asia), as an Open Bank, connects to the FWD platform via Open API. FWD can systematically read data (e.g., customer premium payment status), reducing manual reconciliation work and human errors for both sides, while significantly accelerating premium settlement speed.
+
+### 3. Process Comparison
+
+|Step|Traditional Process|Automated Process (Open API)|
+|----|-------------------|----------------------------|
+|1. Customer Pays|Customer pays CCB (Asia) premium|Customer pays CCB (Asia) premium|
+|2. Data Transfer|Bank staff manually notifies FWD|CCB system stores transaction data instantly|
+|3. Premium Confirmation|FWD staff manually reconciles|FWD system automatically queries transaction details from CCB via API|
+|4. Data Return|Waits for reconciliation|CCB returns premium amount + policy number|
+|5. Policy Activation|~3 days|Same day / within 1 business day|
+
+### 4. Technical Architecture (How It Maps to This App's Design)
+
+This real-world case validates the abstraction design of `HKMA_OPENAPI_BASE_URL` in this app:
+
+|Architecture Layer|Real-World Case|This App's Design|
+|------------------|---------------|-----------------|
+|Standard Layer|Open API framework led by HKMA/IA|`HKMA_OPENAPI_BASE_URL` represents FPS standard|
+|Bank Layer|CCB (Asia) as Open Bank provides API|Maps to `CCB_OPENAPI_BASE_URL` at deployment|
+|Insurer Layer|FWD system reads data via API|My Claims System calls the API|
+
+**How It Works:**
+
+1. **Customer pays premium to CCB** → CCB system records the transaction  
+2. **FWD system queries CCB via API** to retrieve transaction details  
+3. **Premium receipt confirmed** → Policy activates same day  
+4. **Claims payout** → Also via API, achieving 37‑second settlement
+
+### 5. Relevance to This App's Design
+
+This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_URL` in this app:
+
+- **FWD does NOT connect directly to HKMA.** Instead, it connects to **CCB (Asia)'s API, which follows the HKMA FPS standard.**
+- This app adopts the **same abstraction design**: `HKMA` represents the **standard layer**, while deployment maps it to a specific bank (e.g., `CCB`).
+- This is precisely why this app **requires no core code changes when switching or adding banks** — as long as the bank follows the HKMA standard, seamless integration is possible.
   
 ## ⚠️ Disclaimer
 
