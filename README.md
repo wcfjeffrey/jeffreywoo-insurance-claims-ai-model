@@ -859,24 +859,24 @@ This app is a **demonstration prototype** created for portfolio and learning pur
 
 ### No Warranty
 
-The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.
+The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the author or copyright holder be liable for any claims, damages, consequences, or other liabilities, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.
 
 ### Not for Real Insurance Claims
 
 - ❌ This system does NOT process real insurance claims
-- ❌ No actual insurance policies are issued or managed
+- ❌ No real insurance policies are issued or managed
 - ❌ AI fraud detection results are simulated and not validated
 - ❌ HKFRS 17 calculations are for demonstration only
-- ❌ No real financial transactions occur
+- ❌ No real financial transactions are executed
 - ❌ No regulatory compliance guarantees are made
 
 ### Demo Credentials
 
-All user credentials and data shown are for testing purposes only. Any resemblance to real persons or entities is coincidental.
+All user credentials sample data, and outputs are for testing purposes only. Any resemblance to real persons, organizations, or transactions is coincidental.
 
 ### Regulatory Compliance
 
-This demo does NOT constitute legal or financial advice. Organizations seeking HKFRS 17 compliance should consult qualified professionals and use certified software.
+This demo does NOT constitute legal, financial, or regulatory advice. Organizations seeking HKFRS 17 compliance should consult qualified professionals and use certified solutions.
 
 ## 🙏 Acknowledgments
 
@@ -887,7 +887,9 @@ This demo does NOT constitute legal or financial advice. Organizations seeking H
 
 ## 📄 License
 
-**Proprietary** — JeffreyWoo Insurance Claims
+**Proprietary License** — JeffreyWoo Insurance Claims
+This repository and its contents are proprietary to JeffreyWoo Insurance Claims.
+Unauthorized copying, modification, distribution, or use of the code, documentation, or related materials is strictly prohibited without prior written consent.
 
 ## 👤 About the Author
 Jeffrey Woo — Finance Manager | Strategic FP&A, AI Automation & Cost Optimization | MBA | FCCA | CTA | FTIHK | SAP Financial Accounting (FI) Certified Application Associate | Xero Advisor Certified
