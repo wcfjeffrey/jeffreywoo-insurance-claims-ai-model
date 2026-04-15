@@ -599,7 +599,7 @@ Set `OPENAI_API_KEY` in `.env` for the conversational assistant and structured N
 
 Set `HKMA_OPENAPI_BASE_URL` and `HKMA_OPENAPI_TOKEN` to call a real endpoint; otherwise payments are **simulated** and a reference is still stored for audit.
 
-## 🐳 Docker (Postgres only vs full stack) (Full Stack)
+## 🐳 Docker (Postgres Only vs Full Stack)
 
 - **Postgres only** (typical for local dev with `npm run dev`):
   `docker compose up -d`
