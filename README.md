@@ -108,9 +108,9 @@ Closing CSM = Opening CSM + Interest Accretion - Amortization
 ### Accounting Journal Entries Generated
 |Transaction|Debit|Credit|Business Meaning|
 |-----------|-----|------|----------------|
-|Interest accretion|Dr. CSM|Cr. Insurance Finance Income|Time value of money|
-|CSM release|Dr. CSM|Cr. Insurance Revenue|Profit recognition|
-|Claim payment|Dr. LIC|Cr. Cash/Bank|Settlement of liability|
+|Interest accretion|Dr. Insurance finance expense (P&L)|Cr. Contractual Service Margin (CSM)|Recognizes time value of money on CSM balance (unwinding discount)|
+|CSM release|Dr. CSM (balance sheet liability)|Cr. Insurance revenue (P&L)|Transfers expected profit into revenue as services are provided|
+|Claim payment|Dr. Liability for Incurred Claims (LIC)|Cr. Cash/Bank|Settlement of insurance liability to policyholder|
 
 ### Disclosure Notes (Audit-Ready)
 - ✅ **Measurement approach**: GMM using Building Block Approach
