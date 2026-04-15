@@ -599,6 +599,14 @@ Set `OPENAI_API_KEY` in `.env` for the conversational assistant and structured N
 
 Set `HKMA_OPENAPI_BASE_URL` and `HKMA_OPENAPI_TOKEN` to call a real endpoint; otherwise payments are **simulated** and a reference is still stored for audit.
 
+**Note:**
+
+**Layered Environment Variable Strategy**
+
+**Generic Compliance Layer** – **HKMA**_OPENAPI_BASE_URL and **HKMA**_OPENAPI_TOKEN are defined to strictly follow the Open API technical framework standard established by the Hong Kong Monetary Authority (HKMA). This ensures the system architecture has universal extensibility to integrate with any HKMA-compliant bank (e.g., Bank of China (Hong Kong), HSBC, Standard Chartered, etc.).
+
+**Business Deployment Layer** – For a specific bancassurance partnership (e.g., China Construction Bank (Asia) as a real-world example), the generic variables are mapped to **CCB**_OPENAPI_BASE_URL and **CCB**_OPENAPI_TOKEN at deployment time. API credentials are formally applied from CCB to enable real-time business interactions such as premium payment status inquiry and fast-track claims disbursement.
+
 ## 🐳 Docker (Postgres Only vs Full Stack)
 
 - **Postgres only** (typical for local dev with `npm run dev`):
