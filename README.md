@@ -948,7 +948,7 @@ This real-world case validates the abstraction design of `HKMA_OPENAPI_BASE_URL`
 |------------------|---------------|-----------------|
 |Standard Layer|Open API framework led by HKMA/IA|`HKMA_OPENAPI_BASE_URL` represents FPS standard|
 |Bank Layer|CCB (Asia) as Open Bank provides API|Maps to `CCB_OPENAPI_BASE_URL` at deployment|
-|Insurer Layer|FWD system reads data via API|My app calls the API|
+|Insurer Layer|FWD system reads data via API|This app calls the API|
 
 **How It Works:**
 
