@@ -887,8 +887,10 @@ This demo does NOT constitute legal, financial, or regulatory advice. Organizati
 
 ## 📄 License
 
-**Proprietary License** — JeffreyWoo Insurance Claims
-This repository and its contents are proprietary to JeffreyWoo Insurance Claims.
+**Proprietary License** — JeffreyWoo Insurance Claims  
+
+This repository and its contents are proprietary to JeffreyWoo Insurance Claims.  
+
 Unauthorized copying, modification, distribution, or use of the code, documentation, or related materials is strictly prohibited without prior written consent.
 
 ## 👤 About the Author
