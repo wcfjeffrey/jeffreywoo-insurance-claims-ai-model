@@ -707,6 +707,43 @@ jeffreywoo-insurance-claims/
 |💰 Accounting Staff|accounting@jwinsurance.test|Password123|Dashboard, Claims, AI Assistant, Compliance, Reports, **Accounting, HKFRS 17 Compliance, HKFRS 17 CSM Calculator**|
 |👑 Manager|manager@jwinsurance.test|Password123|Dashboard, Claims, AI Assistant, Compliance, Reports, Accounting, HKFRS 17 Compliance, HKFRS 17 CSM Calculator, **Audit Trail**|
 
+### User Access Rights for Reports
+
+The following table defines report access permissions for each role in the system:
+
+| Report Type | 👤 Customer | 👔 Claim Officer | 💰 Accounting Staff | 👑 Manager |
+|-------------|-------------|------------------|---------------------|------------|
+| My Claims Status | ✅ Full | ✅ Full | ✅ Full | ✅ Full |
+| Claims Dashboard | ❌ No | ✅ Full | ✅ Full | ✅ Full |
+| FNOL Volume Report | ❌ No | ✅ Full | ✅ Full | ✅ Full |
+| Fraud Scoring Summary | ❌ No | 🔍 Read-only | ✅ Full | ✅ Full |
+| AI Assistant Log | ❌ No | ✅ Full | ✅ Full | ✅ Full |
+| Compliance Checklist | ❌ No | 🔍 Read-only | ✅ Full | ✅ Full |
+| Accounting Reports | ❌ No | ❌ No | ✅ Full | ✅ Full |
+| HKFRS 17 Compliance Report | ❌ No | ❌ No | ✅ Full | ✅ Full |
+| HKFRS 17 CSM Calculator | ❌ No | ❌ No | ✅ Full | ✅ Full |
+| Cash Flow Forecast | ❌ No | ❌ No | ✅ Full | ✅ Full |
+| SAP/Oracle Sync Status | ❌ No | ❌ No | 🔍 Read-only | ✅ Full |
+| HKMA Gateway Report | ❌ No | ❌ No | ✅ Full | ✅ Full |
+| Audit Trail Report | ❌ No | ❌ No | ❌ No | ✅ Full |
+| User Access Review | ❌ No | ❌ No | ❌ No | ✅ Full |
+| System Performance Report | ❌ No | ❌ No | ❌ No | ✅ Full |
+
+#### Legend
+
+| Icon | Meaning |
+|------|---------|
+| ✅ Full | Full access (view, filter, sort, export) |
+| 🔍 Read-only | View only — no export or modification |
+| ❌ No | No access |
+
+#### Notes
+
+- **Customer**: Only views own claims. Cannot access any operational or financial reports.
+- **Claim Officer**: Full operational access but no financial or HKFRS 17 reports.
+- **Accounting Staff**: Full financial and HKFRS 17 access. Can view SAP/Oracle sync status but cannot modify integration settings.
+- **Manager**: Full system access including audit trail and user activity logs. All Manager actions are logged with highest audit priority.
+
 ### Test Scenarios
 |Scenario|Claim Reference|Status|Amount|Risk|
 |--------|---------------|------|------|----|
