@@ -373,6 +373,7 @@
     "riskFactor": "Risk Factor",
     "impactScore": "Impact Score",
     "description": "Description",
+    "priorityColumn": "Priority",
     "aiRecommendations": "AI Recommendations",
     "riskLevels": {
       "critical": "Critical",
