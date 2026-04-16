@@ -993,9 +993,9 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 
 ## 📚 Related Resources
 
-- [HKFRS 17 Insurance Contracts – HKICPA](https://www.hkicpa.org.hk/en/Standards-setting/Standards/New-and-major-standards/New-and-Major-Standards/HKFRS-17-Insurance-Contracts))
-- [HKMA Open API Documentation](https://apidocs.hkma.gov.hk/documentation/))
-- [Open API for Banking Sector – HKMA](https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/fintech/open-application-programming-interface-api-for-the-banking-sector/))
+- [HKFRS 17 Insurance Contracts – HKICPA](https://www.hkicpa.org.hk/en/Standards-setting/Standards/New-and-major-standards/New-and-Major-Standards/HKFRS-17-Insurance-Contracts)
+- [HKMA Open API Documentation](https://apidocs.hkma.gov.hk/documentation/)
+- [Open API for Banking Sector – HKMA](https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/fintech/open-application-programming-interface-api-for-the-banking-sector/)
 - [CCB (Asia) & FWD Innovative Bancassurance Experience](https://www.asia.ccb.com/hongkong/personal/insurance/life_insurance/openapi.html?cmpid=HKTCDTPSISTMG-LIFEINSAPI)
   
 ## ⚠️ Disclaimer
