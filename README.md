@@ -272,6 +272,21 @@ The AI performs live Google searches to verify vendor legitimacy:
 - **License verification** - Checks DOT numbers for towing companies, medical licenses for clinics  
 - **Online presence** - Verifies website, phone number, and business hours
 
+**Note:** This app uses **SerpApi** to programmatically query Google Maps and Google Search for vendor verification during claim processing.
+
+When a claim includes invoices from towing companies, repair shops, hospitals, or medical providers, the AI extracts the vendor names and uses SerpApi to:
+
+- ✅ Confirm the business exists on Google Maps
+- ✅ Retrieve address, phone, website, and Google rating
+- ✅ Flag vendors with ratings below 3.0⭐ as high-risk
+- ✅ Cross‑reference vendor address with claim location
+
+### Environment Variable
+
+```
+SERPAPI_API_KEY=your_api_key_here   # Optional — falls back to simulation mode if unset
+```
+
 ### 4. Risk Scoring Algorithm
 
 Each claim receives a comprehensive risk score from 0-100:
