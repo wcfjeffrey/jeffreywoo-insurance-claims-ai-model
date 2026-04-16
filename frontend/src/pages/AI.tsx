@@ -981,7 +981,7 @@ export function AIPage() {
                           <th style={{ padding: "14px", textAlign: "left", fontSize: "13px", fontWeight: "600", color: "#1a1a1a" }}>{t("ai.riskFactor")}</th>
                           <th style={{ padding: "14px", textAlign: "center", fontSize: "13px", fontWeight: "600", color: "#1a1a1a" }}>{t("ai.impactScore")}</th>
                           <th style={{ padding: "14px", textAlign: "left", fontSize: "13px", fontWeight: "600", color: "#1a1a1a" }}>{t("ai.description")}</th>
-                          <th style={{ padding: "14px", textAlign: "center", fontSize: "13px", fontWeight: "600", color: "#1a1a1a" }}>{t("ai.priority")}</th>
+                          <th style={{ padding: "14px", textAlign: "center", fontSize: "13px", fontWeight: "600", color: "#1a1a1a" }}>{t("ai.priorityColumn")}</th>
                         </tr>
                       </thead>
                       <tbody>
