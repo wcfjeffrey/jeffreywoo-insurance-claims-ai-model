@@ -4,6 +4,9 @@ import { pool } from "../db/pool.js";
 import { createOpenAIClient } from "../lib/openaiClient.js";
 import { requireAuth, requireRoles } from "../middleware/auth.js";
 import { writeAudit } from "../services/auditService.js";
+import { ParsedQs } from "qs";
+import { validateVendor as validateVendorService } from "../services/externalValidationService.js";
+import { collectFraudIndicatorDetails, deriveRiskBand, deriveExecutiveRecommendation } from "../services/claimAnalysisReport.js";
 
 const router = Router();
 
@@ -89,6 +92,11 @@ interface ToolResult {
   count?: number;
   summary?: string;
   error?: string;
+  riskAnalysis?: {
+    riskAnalysisText: string[];
+    riskBand: string;
+    executiveRecommendation: string;
+  };
 }
 
 interface ChatResponse {
@@ -263,6 +271,10 @@ async function executeQueryClaims(args: any, userId: string, userRole: string): 
   
   console.log("=== executeQueryClaims called ===");
   console.log("Arguments:", JSON.stringify(args, null, 2));
+  console.log("userRole:", userRole);
+  console.log("userId:", userId);
+  console.log("reference_number:", reference_number);
+  console.log("args:", JSON.stringify(args, null, 2));
   
   let sql = `
     SELECT 
@@ -337,6 +349,8 @@ async function executeQueryClaims(args: any, userId: string, userRole: string): 
         summary: "No claims found matching your criteria"
       };
     }
+    console.log("Final SQL:", sql);
+    console.log("Params:", params);
     
     const formattedClaims = result.rows.map(row => ({
       id: row.id,
@@ -352,11 +366,17 @@ async function executeQueryClaims(args: any, userId: string, userRole: string): 
     
     const totalAmount = formattedClaims.reduce((sum, row) => sum + (row.claimed_amount || 0), 0);
     
+    let riskAnalysis = undefined;
+    if (formattedClaims.length === 1 && reference_number) {
+      riskAnalysis = await getClaimRiskAnalysis(formattedClaims[0].id);
+    }
+
     return {
       success: true,
       data: formattedClaims,
       count: formattedClaims.length,
-      summary: `Found ${formattedClaims.length} claim(s) with total value of ${formatCurrency(totalAmount)}`
+      summary: `Found ${formattedClaims.length} claim(s) with total value of ${formatCurrency(totalAmount)}`,
+      riskAnalysis
     };
   } catch (error) {
     console.error("Query claims error:", error);
@@ -1027,4 +1047,82 @@ function formatCurrency(amount: number): string {
   }).format(amount);
 }
 
+router.get("/test-vendor", requireAuth, async (req, res) => {
+  const vendorName = req.query.name as string || "Hudson Valley Towing & Recovery Inc.";
+    
+  console.log(`[TEST-VENDOR] Searching for: ${vendorName}`);
+  
+  const result = await validateVendorService(vendorName);
+  
+  res.json({
+    success: true,
+    vendor: vendorName,
+    result
+  });
+  
+});
+
 export default router;
+
+function validateVendor(vendorName: string | ParsedQs | (string | ParsedQs)[]) {
+  throw new Error("Function not implemented.");
+}
+
+async function getClaimRiskAnalysis(claimId: string): Promise<{
+  riskAnalysisText: string[];
+  riskBand: string;
+  executiveRecommendation: string;
+} | undefined> {
+  
+  try {
+    // ✅ 只查询存在的字段
+    const claimResult = await pool.query(
+      `SELECT fraud_risk_score, reference_number, claimed_amount, status FROM claims WHERE id = $1`,
+      [claimId]
+    );
+    
+    if (claimResult.rows.length === 0) {
+      return undefined;
+    }
+    
+    const claim = claimResult.rows[0];
+    const riskScore = claim.fraud_risk_score || 0;
+    const riskBand = deriveRiskBand(riskScore);
+    const executiveRecommendation = deriveExecutiveRecommendation(riskScore);
+    
+    // 生成风险分析文本
+    const riskAnalysisText = [];
+    
+    if (riskBand === 'Critical') {
+      riskAnalysisText.push('🔴 **CRITICAL RISK** - Immediate SIU referral required. Do not process payment.');
+    } else if (riskBand === 'High') {
+      riskAnalysisText.push('🟠 **HIGH RISK** - Enhanced due diligence and manager review required.');
+    } else if (riskBand === 'Medium') {
+      riskAnalysisText.push('🟡 **MEDIUM RISK** - Additional documentation and verification recommended.');
+    } else {
+      riskAnalysisText.push('🟢 **LOW RISK** - Standard verification path.');
+    }
+    
+    // 根据风险分数添加额外说明
+    if (riskScore >= 70) {
+      riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - High risk claim detected.`);
+    } else if (riskScore >= 40) {
+      riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - Moderate risk, recommend verification.`);
+    }
+    
+    // 根据状态添加说明
+    if (claim.status === 'escalated') {
+      riskAnalysisText.push(`📌 **Status**: This claim has been escalated for manager review.`);
+    }
+    
+    return {
+      riskAnalysisText,
+      riskBand,
+      executiveRecommendation
+    };
+    
+  } catch (error) {
+    console.error("getClaimRiskAnalysis error:", error);
+    return undefined;
+  }
+}
