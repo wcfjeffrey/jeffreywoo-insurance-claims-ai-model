@@ -63,6 +63,7 @@
     "subtitle": "Comprehensive claims overview with real-time status tracking and risk assessment",
     "reference": "Reference",
     "status": "Status",
+    "approval": "Approval",
     "amount": "Amount",
     "actions": "Actions",
     "customer": "Customer",
