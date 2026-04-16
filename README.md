@@ -18,7 +18,10 @@
 [![HKFRS 17](https://img.shields.io/badge/HKFRS%2017-Compliant-Blue)](https://www.hkicpa.org.hk/)
 [![License](https://img.shields.io/badge/License-Proprietary-Red)](LICENSE)
 
-**JeffreyWoo Insurance Claims** is an AI-powered insurance claims management system automating the full claims workflow—from submission to disbursement—with Role-Based Access Control (RBAC), NLP assistant & multi‑language support, featuring company background/document validation, ML-driven fraud detection, predictive risk analytics, automated accounting entries with real-time cash flow forecasting, integration with SAP/Oracle/HKMA gateways, ensuring CSM calculation, robust audit trails, and seamless governance alignment for HKFRS 17 compliance.
+**JeffreyWoo Insurance Claims** is an AI-powered insurance claims management system automating the full claims workflow—from submission to disbursement—with Role-Based Access Control (RBAC), NLP assistant & multi‑language support, featuring company background/document validation, ML-driven fraud detection, predictive risk analytics, automated accounting entries with real-time cash flow forecasting, integration with SAP/Oracle/HKMA gateways, ensuring CSM calculation, robust audit trails, and seamless governance alignment for HKFRS 17 compliance. Built with modern web technologies and AI integration, it demonstrates how insurers can achieve efficiency, transparency, and regulatory alignment.
+- **Problem Solved:** Manual claims handling is slow, error‑prone, and vulnerable to fraud.  
+- **Who Benefits:** Insurance companies, accounting teams, regulators, and customers.  
+- **Why It’s Unique:** Combines AI models, HKFRS 17 compliance, and HKMA payment gateway integration in one system.
 
 ## ✨ What It Does
 
@@ -67,13 +70,24 @@
                                  │ ESCALATED  │     │  REJECTED  │
                                  └────────────┘     └────────────┘</pre>
 
-## 🔎 AI Fraud Detection
-|Feature|Implementation|Accuracy|
-|--------|-------------|----------|
-|Risk Scoring|Rule-based + ML anomaly detection|85-95%|
-|Fraud Indicators|Suspicious patterns, vendor verification|Real-time|
-|AI Validation Report|Document analysis + recommendations|Automated|
-|Natural Language Query|Search claims using plain English|90%+|
+## 🚀 Key Highlights
+
+| Feature | Business Benefit | Tech Stack |
+|---------|-----------------|------------|
+| **AI Fraud Detection** | Detect and prevent fraudulent claims | Rule‑based engine + ML + GPT |
+| **Cash‑flow forecasting** | Better financial planning | PostgreSQL + APIs |
+| **HKMA payment gateway** | Seamless regulatory compliance | Adapter integration |
+| **Multi‑role dashboards** | Tailored views for customers, officers, accountants, managers | React + Node.js |
+| **Audit automation** | Faster compliance reporting | AI + workflow automation |
+
+### 🔍 AI Fraud Detection — Detailed Breakdown
+
+| Feature | Implementation | Accuracy |
+|---------|----------------|----------|
+| **Risk Scoring** | Rule‑based + ML anomaly detection | 85–95% |
+| **Fraud Indicators** | Suspicious patterns, vendor verification | Real‑time |
+| **AI Validation Report** | Document analysis + recommendations | Automated |
+| **Natural Language Query** | Search claims using plain English | 90%+ |
 
 ## 📐 HKFRS 17 Insurance Accounting
 
@@ -977,7 +991,12 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 - This app adopts the **same abstraction design**: `HKMA` represents the **standard layer**, while deployment maps it to a specific bank (e.g., `CCB`).
 - This is precisely why this app **requires no core code changes when switching or adding banks** — as long as the bank follows the HKMA standard, seamless integration is possible.
 
-**Source:** [CCB (Asia) & FWD Innovative Bancassurance Experience](https://www.asia.ccb.com/hongkong/personal/insurance/life_insurance/openapi.html?cmpid=HKTCDTPSISTMG-LIFEINSAPI)
+## 📚 Related Resources
+
+- [HKFRS 17 Insurance Contracts – HKICPA](https://www.hkicpa.org.hk/en/Standards-and-regulation/Standards/Our-standards/HKFRS-17-Insurance-Contracts)
+- [HKMA Open API Documentation](https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/fintech/open-api/)
+- [Open API for Banking Sector – HKMA](https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/fintech/open-api/)
+- [CCB (Asia) & FWD Innovative Bancassurance Experience](https://www.asia.ccb.com/hongkong/personal/insurance/life_insurance/openapi.html?cmpid=HKTCDTPSISTMG-LIFEINSAPI)
   
 ## ⚠️ Disclaimer
 
