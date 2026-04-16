@@ -63,6 +63,7 @@
     "subtitle": "全面的理賠概覽，包含即時狀態追蹤和風險評估",
     "reference": "參考編號",
     "status": "狀態",
+    "approval": "批准",
     "amount": "金額",
     "actions": "操作",
     "customer": "客戶",
@@ -373,6 +374,7 @@
     "riskFactor": "風險因素",
     "impactScore": "影響分數",
     "description": "描述",
+    "priorityColumn": "優先級",
     "aiRecommendations": "AI建議",
     "riskLevels": {
       "critical": "嚴重",
