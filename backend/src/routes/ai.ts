@@ -1075,7 +1075,6 @@ async function getClaimRiskAnalysis(claimId: string): Promise<{
 } | undefined> {
   
   try {
-    // ✅ 只查询存在的字段
     const claimResult = await pool.query(
       `SELECT fraud_risk_score, reference_number, claimed_amount, status FROM claims WHERE id = $1`,
       [claimId]
@@ -1089,8 +1088,6 @@ async function getClaimRiskAnalysis(claimId: string): Promise<{
     const riskScore = claim.fraud_risk_score || 0;
     const riskBand = deriveRiskBand(riskScore);
     const executiveRecommendation = deriveExecutiveRecommendation(riskScore);
-    
-    // 生成风险分析文本
     const riskAnalysisText = [];
     
     if (riskBand === 'Critical') {
@@ -1103,14 +1100,12 @@ async function getClaimRiskAnalysis(claimId: string): Promise<{
       riskAnalysisText.push('🟢 **LOW RISK** - Standard verification path.');
     }
     
-    // 根据风险分数添加额外说明
     if (riskScore >= 70) {
       riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - High risk claim detected.`);
     } else if (riskScore >= 40) {
       riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - Moderate risk, recommend verification.`);
     }
     
-    // 根据状态添加说明
     if (claim.status === 'escalated') {
       riskAnalysisText.push(`📌 **Status**: This claim has been escalated for manager review.`);
     }
