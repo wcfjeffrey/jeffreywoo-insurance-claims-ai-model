@@ -909,13 +909,21 @@ The above test results demonstrate the **key behavioral differences** between th
 | **Multi‑turn reasoning** | ✅ Can perform follow‑up operations (sum, filter, compare) | ❌ Each query is independent |
 | **Best for** | Exploratory analysis, multi‑step workflows, decision support | Fast, single‑shot data retrieval and exports |
 
+### How Context Memory Works
+
+> **🔴 Redis (Locally Deployed)** – The Conversational Assistant uses a **locally deployed Redis instance** to store conversation history for each user session.  
+> - **Key format:** `chat:session:{userId}`  
+> - **TTL:** 1 hour (automatically expires)  
+> - **Max history:** 20 messages per session (default) 
+> - **Deployment:** `redis://localhost:6379` (local development)
+
 ### Why the Difference?
 
-- **Conversational Assistant** maintains conversation history using Redis. The AI receives previous messages and tool results, enabling it to understand context and references like "those claims".
+- **Conversational Assistant** maintains conversation history using **Redis**. The AI receives previous messages and tool results, enabling it to understand context and references like "those claims".
 
 - **Natural Language Claims Query** uses a stateless parser (`simpleParseQuery`) that extracts keywords from the **current query only**. It does not retain any memory of previous queries, making it faster but incapable of multi‑turn reasoning.
 
-> **Note:** To perform multi‑turn queries with context, always use the **Conversational Assistant** tab. Use **Natural Language Claims Query** only for single, independent data lookups.
+> **Note:** To perform multi‑turn queries with context, always use the **Conversational Assistant** tab. Use **Natural Language Claims Query** only for single, independent data lookups. Without **Redis**, the Conversational Assistant would be stateless and unable to remember the previous context. The local Redis deployment enables full multi‑turn conversation capabilities while keeping data under your control.
   
 **<ins>New Claim Before AI Document Validation (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims17.png" alt="JeffreyWooInsuranceClaims17" width="1200" height="600" />
