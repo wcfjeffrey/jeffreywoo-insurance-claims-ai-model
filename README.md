@@ -15,6 +15,7 @@
 [![JWT](https://img.shields.io/badge/JWT-Auth-000000?logo=jsonwebtokens)](https://jwt.io/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
 [![Kubernetes](https://img.shields.io/badge/K8s-Ready-326CE5?logo=kubernetes)](https://kubernetes.io/)
+![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white)
 [![HKFRS 17](https://img.shields.io/badge/HKFRS%2017-Compliant-Blue)](https://www.hkicpa.org.hk/)
 [![License](https://img.shields.io/badge/License-Proprietary-Red)](LICENSE)
 
