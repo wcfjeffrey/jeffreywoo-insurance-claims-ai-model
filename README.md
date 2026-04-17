@@ -558,6 +558,7 @@ This app supports two distinct modes for interacting with claims data. Both use 
 - Node.js **20+**
 - Docker & Docker Compose
 - PostgreSQL **15+**
+- Redis **7.x** (for conversation memory)
 
 ### Local development
 
@@ -566,7 +567,8 @@ This app supports two distinct modes for interacting with claims data. Both use 
 ##### Clone repository
 
 `git clone https://github.com/YOUR_USERNAME/insurance-claims-system.git`  
-Create `.env` at the repo root. For the API, ensure `DATABASE_URL` points at your Postgres instance.
+
+Create `.env` at the repo root. For the API, ensure `DATABASE_URL` points at your Postgres instance and REDIS_URL points at your Redis instance.
 
 ##### Copy environment configuration
 
@@ -592,21 +594,52 @@ Choose one of the following methods:
 
   *Note: Requires PostgreSQL installed locally on your machine*
 
-##### B. Run migrations
+##### B. Start Redis (for conversation memory)
+Choose one of the following methods:
+
+**Option 1: With Docker**
+
+`docker run -d --name redis -p 6379:6379 redis:7`
+
+**Option 2: Without Docker (Local Redis installed)**
+
+**macOS**
+`brew services start redis`
+
+**Linux / WSL**
+`sudo service redis-server start`
+
+**Verify Redis is running**
+`redis-cli ping`
+
+**Expected response:** PONG
+
+##### C. Run migrations
 
    `cd backend && npm run db:migrate`
 
-##### C. Seed data
+##### D. Seed data
 
    `cd backend && npm run db:seed`
 
-##### D. Stop Database
+##### E. Stop Database
 
 - For Docker
   `docker-compose down`
 
 - For local PostgreSQL
   `npm run db:down`
+
+##### F. Stop Redis
+
+**Docker**
+`docker stop redis`
+
+**macOS**
+`brew services stop redis`
+
+**Linux / WSL**
+`sudo service redis-server stop`
 
 #### 3. **Install & run (API + Vite)**
 
@@ -624,6 +657,7 @@ Choose one of the following methods:
 - **Frontend**: `http://localhost:5173` (proxies `/api` and `/socket.io` to the API)
 - **Backend API**: `http://localhost:3001`
 - **Health check**: `http://localhost:3001/api/health`
+- **Redis**: `redis://localhost:6379`
 
 ##### Optional: OpenAI (or OpenAI-compatible API)
 
@@ -678,9 +712,10 @@ Set `HKMA_OPENAPI_BASE_URL` and `HKMA_OPENAPI_TOKEN` to call a real endpoint; ot
 ```
   kubectl create secret generic app-secrets \
     --from-literal=database-url=postgresql://... \
+    --from-literal=redis-url=redis://... \
     --from-literal=jwt-secret=...
 ```
-**Note:** Example manifests live under `deploy/k8s/`. Replace image names, create a `Secret` with `database-url` and `jwt-secret`, and point ingress at the `web` and `api` services.
+**Note:** Example manifests live under `deploy/k8s/`. Replace image names, create a `Secret` with `database-url`, `redis-url`, and `jwt-secret`, and point ingress at the `web` and `api` services.
 
 ## 🔀 API Layout
 
