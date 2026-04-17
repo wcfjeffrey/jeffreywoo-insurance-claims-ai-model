@@ -526,6 +526,7 @@ This app supports two distinct modes for interacting with claims data. Both use 
 |i18n|i18next|22.4.0|Multi-language|
 |Backend|Node.js + Express (separate repository)|20.x|REST API|
 |Database|PostgreSQL|16.x|ACID compliance|
+| Cache / Session | Redis (local) | 7.x | Conversation memory (chat history per user) |
 |ORM|pg (node-postgres)|-|SQL queries|
 |Auth|JWT|-|Stateless auth|
 |Container|Docker + K8s|-|Orchestration|
