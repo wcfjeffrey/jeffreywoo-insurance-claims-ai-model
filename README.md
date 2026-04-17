@@ -884,7 +884,7 @@ The following table defines report access permissions for each role in the syste
 **<ins>AI Analysis Results from Coversational Assistant, Natural Language Claims Query for Follow-up Questions (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims16b.png" alt="JeffreyWooInsuranceClaims16b" width="1200" height="1200" />
 
-## Testing Results: Conversational Assistant vs. Natural Language Claims Query
+## 🧪 Testing Results: Conversational Assistant vs. Natural Language Claims Query
 
 The above test results demonstrate the **key behavioral differences** between the two AI interaction modes.
 
@@ -897,8 +897,8 @@ The above test results demonstrate the **key behavioral differences** between th
 
 | Step | User Input | Natural Language Claims Query |
 |------|------------|-------------------------------|
-| **1** | `Show me all pending claims`| ✅ Returns pending claims (CLM-2026-0109, CLM-2026-0101) |
-| **2** | `Sum up the amounts of those claims` | ❌ **Show all claims in the database** — doesn't remember that "those claims" refers to the pending claims from the previous result |
+| **3** | `Show me all pending claims`| ✅ Returns pending claims (CLM-2026-0109, CLM-2026-0101) |
+| **4** | `Sum up the amounts of those claims` | ❌ **Show all claims in the database** — doesn't remember that "those claims" refers to the pending claims from the previous result |
 
 ### Conclusion of These Tests
 
