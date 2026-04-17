@@ -948,11 +948,11 @@ The above test results demonstrate the **key behavioral differences** between th
 
 ### How Context Memory Works
 
-> **🔴 Redis (Locally Deployed)** – The Conversational Assistant uses a **locally deployed Redis instance** to store conversation history for each user session.  
-> - **Key format:** `chat:session:{userId}`  
-> - **TTL:** 1 hour (automatically expires)  
-> - **Max history:** 20 messages per session (default) 
-> - **Deployment:** `redis://localhost:6379` (local development)
+**🔴 Redis (Locally Deployed)** – The Conversational Assistant uses a **locally deployed Redis instance** to store conversation history for each user session.  
+- **Key format:** `chat:session:{userId}`  
+- **TTL:** 1 hour (automatically expires)  
+- **Max history:** 20 messages per session (default) 
+- **Deployment:** `redis://localhost:6379` (local development)
 
 ### Why the Difference?
 
