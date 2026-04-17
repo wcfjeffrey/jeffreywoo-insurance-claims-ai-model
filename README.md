@@ -883,6 +883,39 @@ The following table defines report access permissions for each role in the syste
 
 **<ins>AI Analysis Results from Coversational Assistant, Natural Language Claims Query for Follow-up Questions (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims16b.png" alt="JeffreyWooInsuranceClaims16b" width="1200" height="1200" />
+
+## Testing Results: Conversational Assistant vs. Natural Language Claims Query
+
+The above test results demonstrate the **key behavioral differences** between the two AI interaction modes.
+
+### Test Scenario: Multi‑turn Query with Context
+
+| Step | User Input | Conversational Assistant | 
+|------|------------|--------------------------|
+| **1** | `Show me CLM-2026-0103` | ✅ Returns details, risk analysis and recommendation for CLM-2026-0103 | 
+| **2** | `Show me the vendors for that claim` | ✅ **Correctly show the vendor Hudson Valley Towing & Recovery & its information for CLM-2026-0103** — remembers that "that claim" refers to the previous context (CLM-2026-0103) |
+
+| Step | User Input | Natural Language Claims Query |
+|------|------------|-------------------------------|
+| **1** | `Show me all pending claims`| ✅ Returns pending claims (CLM-2026-0109, CLM-2026-0101) |
+| **2** | `Sum up the amounts of those claims` | ❌ **Show all claims in the database** — doesn't remember that "those claims" refers to the pending claims from the previous result |
+
+### Conclusion of These Tests
+
+| Feature | Conversational Assistant | Natural Language Claims Query |
+|---------|--------------------------|-------------------------------|
+| **Context memory** | ✅ Yes (via Redis session) | ❌ No (stateless by design) |
+| **Understands references** (e.g., "those", "the same", "this claim") | ✅ Yes | ❌ No |
+| **Multi‑turn reasoning** | ✅ Can perform follow‑up operations (sum, filter, compare) | ❌ Each query is independent |
+| **Best for** | Exploratory analysis, multi‑step workflows, decision support | Fast, single‑shot data retrieval and exports |
+
+### Why the Difference?
+
+- **Conversational Assistant** maintains conversation history using Redis. The AI receives previous messages and tool results, enabling it to understand context and references like "those claims".
+
+- **Natural Language Claims Query** uses a stateless parser (`simpleParseQuery`) that extracts keywords from the **current query only**. It does not retain any memory of previous queries, making it faster but incapable of multi‑turn reasoning.
+
+> **Note:** To perform multi‑turn queries with context, always use the **Conversational Assistant** tab. Use **Natural Language Claims Query** only for single, independent data lookups.
   
 **<ins>New Claim Before AI Document Validation (English)</ins>**
   <img src="assets/JeffreyWooInsuranceClaims17.png" alt="JeffreyWooInsuranceClaims17" width="1200" height="600" />
