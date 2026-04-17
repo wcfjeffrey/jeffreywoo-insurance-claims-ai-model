@@ -1,3 +1,4 @@
+import { getChatHistory, addChatMessage, clearChatHistory } from '../lib/redis.js';
 import { Router } from "express";
 import { z } from "zod";
 import { pool } from "../db/pool.js";
@@ -103,6 +104,11 @@ interface ChatResponse {
   reply: string;
   toolUsed?: string;
   claims?: any[];
+  riskAnalysis?: {  
+    riskAnalysisText: string[];
+    riskBand: string;
+    executiveRecommendation: string;
+  };
 }
 
 // ============================================
@@ -249,8 +255,93 @@ const AVAILABLE_TOOLS = [
         }
       }
     }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_vendor_details",
+      description: "Get vendor/service provider details for a specific claim, including towing companies, repair shops, hospitals, etc.",
+      parameters: {
+        type: "object",
+        properties: {
+          claim_reference: {
+            type: "string",
+            description: "The claim reference number (e.g., CLM-2026-0103)"
+          }
+        },
+        required: ["claim_reference"]
+      }
+    }
   }
 ];
+
+// ============================================
+// Helper Functions
+// ============================================
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-HK', {
+    style: 'currency',
+    currency: 'HKD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+async function getClaimRiskAnalysis(claimId: string): Promise<{
+  riskAnalysisText: string[];
+  riskBand: string;
+  executiveRecommendation: string;
+} | undefined> {
+  
+  try {
+    const claimResult = await pool.query(
+      `SELECT fraud_risk_score, reference_number, claimed_amount, status FROM claims WHERE id = $1`,
+      [claimId]
+    );
+    
+    if (claimResult.rows.length === 0) {
+      return undefined;
+    }
+    
+    const claim = claimResult.rows[0];
+    const riskScore = claim.fraud_risk_score || 0;
+    const riskBand = deriveRiskBand(riskScore);
+    const executiveRecommendation = deriveExecutiveRecommendation(riskScore);
+    
+    const riskAnalysisText = [];
+    
+    if (riskBand === 'Critical') {
+      riskAnalysisText.push('🔴 **CRITICAL RISK** - Immediate SIU referral required. Do not process payment.');
+    } else if (riskBand === 'High') {
+      riskAnalysisText.push('🟠 **HIGH RISK** - Enhanced due diligence and manager review required.');
+    } else if (riskBand === 'Medium') {
+      riskAnalysisText.push('🟡 **MEDIUM RISK** - Additional documentation and verification recommended.');
+    } else {
+      riskAnalysisText.push('🟢 **LOW RISK** - Standard verification path.');
+    }
+    
+    if (riskScore >= 70) {
+      riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - High risk claim detected.`);
+    } else if (riskScore >= 40) {
+      riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - Moderate risk, recommend verification.`);
+    }
+    
+    if (claim.status === 'escalated') {
+      riskAnalysisText.push(`📌 **Status**: This claim has been escalated for manager review.`);
+    }
+    
+    return {
+      riskAnalysisText,
+      riskBand,
+      executiveRecommendation
+    };
+    
+  } catch (error) {
+    console.error("getClaimRiskAnalysis error:", error);
+    return undefined;
+  }
+}
 
 // ============================================
 // Tool Execution Functions
@@ -274,7 +365,6 @@ async function executeQueryClaims(args: any, userId: string, userRole: string): 
   console.log("userRole:", userRole);
   console.log("userId:", userId);
   console.log("reference_number:", reference_number);
-  console.log("args:", JSON.stringify(args, null, 2));
   
   let sql = `
     SELECT 
@@ -338,6 +428,9 @@ async function executeQueryClaims(args: any, userId: string, userRole: string): 
   sql += ` ORDER BY c.created_at DESC LIMIT $${paramCount++}`;
   params.push(limit);
   
+  console.log("Final SQL:", sql);
+  console.log("Params:", params);
+  
   try {
     const result = await pool.query(sql, params);
     
@@ -349,8 +442,6 @@ async function executeQueryClaims(args: any, userId: string, userRole: string): 
         summary: "No claims found matching your criteria"
       };
     }
-    console.log("Final SQL:", sql);
-    console.log("Params:", params);
     
     const formattedClaims = result.rows.map(row => ({
       id: row.id,
@@ -515,7 +606,6 @@ async function executeGetDisbursementSummary(args: any, userRole: string): Promi
     const params: any[] = [];
     let paramCount = 1;
     
-    // Map frontend status to database enum values
     let dbStatus = null;
     switch (status) {
       case "pending":
@@ -553,9 +643,7 @@ async function executeGetDisbursementSummary(args: any, userRole: string): Promi
     
     console.log("Disbursement query result:", result.rows);
     
-    // Format the results for frontend
     const formattedDisbursements = result.rows.map(row => {
-      // Map database status to display status
       let displayStatus = row.status;
       let displayApproval = 'pending';
       
@@ -595,7 +683,6 @@ async function executeGetDisbursementSummary(args: any, userRole: string): Promi
       };
     });
     
-    // Create a summary for the AI
     const statusSummary = result.rows.reduce((acc: any, row: any) => {
       acc[row.status] = (acc[row.status] || 0) + 1;
       return acc;
@@ -664,6 +751,52 @@ async function executeGetAuditEvents(args: any): Promise<ToolResult> {
   }
 }
 
+async function executeGetVendorDetails(args: any): Promise<ToolResult> {
+  const { claim_reference } = args;
+  
+  try {
+    // 查询 vendors 表（假设存在）
+    const result = await pool.query(`
+      SELECT 
+        v.name,
+        v.type,
+        v.category,
+        v.address,
+        v.phone,
+        v.website,
+        v.rating,
+        v.verified,
+        v.document_source
+      FROM vendors v
+      JOIN claims c ON v.claim_id = c.id
+      WHERE c.reference_number = $1
+    `, [claim_reference]);
+    
+    if (result.rows.length === 0) {
+      return {
+        success: true,
+        data: [],
+        count: 0,
+        summary: `No vendor details found for claim ${claim_reference}`
+      };
+    }
+    
+    return {
+      success: true,
+      data: result.rows,
+      count: result.rows.length,
+      summary: `Found ${result.rows.length} vendor(s) for claim ${claim_reference}`
+    };
+  } catch (error) {
+    console.error("Get vendor details error:", error);
+    return {
+      success: false,
+      error: `Failed to get vendor details: ${error instanceof Error ? error.message : String(error)}`,
+      data: []
+    };
+  }
+}
+
 // ============================================
 // AI Tool Calling Function
 // ============================================
@@ -672,11 +805,12 @@ async function callAIWithTools(
   userMessage: string, 
   openai: any,
   userId: string,
-  userRole: string
+  userRole: string,
+  history: Array<{ role: "user" | "assistant"; content: string }> = []
 ): Promise<ChatResponse> {
   
   const systemPrompt = `You are JeffreyWoo Insurance Claims AI Assistant. You help users query claims, payments, fraud risks, and audit trails.
-
+   
 IMPORTANT RULES:
 1. When a user asks to SEE, SHOW, LIST, FIND, or SEARCH for claims, you MUST use the query_claims tool.
 2. When asked about statistics (totals, averages, how many), use get_claim_statistics.
@@ -688,11 +822,14 @@ IMPORTANT RULES:
 
 You have access to these tools. Call them when appropriate.`;
 
+  console.log(`📝 Chat session - User: ${userId}, History length: ${history.length}`);
+
   try {
     const response = await openai.chat.completions.create({
       model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
       messages: [
         { role: "system", content: systemPrompt },
+        ...history,
         { role: "user", content: userMessage }
       ],
       tools: AVAILABLE_TOOLS,
@@ -711,12 +848,14 @@ You have access to these tools. Call them when appropriate.`;
       
       let toolResult: ToolResult;
       let claimsData: any[] = [];
+      let riskAnalysisData = undefined;
       
       switch (functionName) {
         case "query_claims":
           toolResult = await executeQueryClaims(functionArgs, userId, userRole);
           if (toolResult.success && toolResult.data) {
             claimsData = toolResult.data;
+            riskAnalysisData = toolResult.riskAnalysis;
           }
           break;
         case "get_claim_statistics":
@@ -731,6 +870,9 @@ You have access to these tools. Call them when appropriate.`;
         case "get_audit_events":
           toolResult = await executeGetAuditEvents(functionArgs);
           break;
+        case "get_vendor_details":
+            toolResult = await executeGetVendorDetails(functionArgs);
+            break;  
         default:
           toolResult = { success: false, error: `Unknown tool: ${functionName}` };
       }
@@ -739,6 +881,7 @@ You have access to these tools. Call them when appropriate.`;
         model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
         messages: [
           { role: "system", content: systemPrompt },
+          ...history,
           { role: "user", content: userMessage },
           { role: "assistant", content: message.content, tool_calls: message.tool_calls },
           {
@@ -759,6 +902,10 @@ You have access to these tools. Call them when appropriate.`;
       
       if (claimsData.length > 0) {
         chatResponse.claims = claimsData;
+      }
+      
+      if (riskAnalysisData) {
+        chatResponse.riskAnalysis = riskAnalysisData;
       }
       
       return chatResponse;
@@ -791,6 +938,10 @@ router.post("/chat", requireAuth, async (req, res) => {
     return;
   }
   
+  const userMessage = parsed.data.message;
+  const userId = req.user!.id;
+  const userRole = req.user!.role;
+
   const openai = createOpenAIClient();
   
   if (!openai) {
@@ -801,13 +952,33 @@ router.post("/chat", requireAuth, async (req, res) => {
   }
   
   try {
-    const { reply, toolUsed, claims } = await callAIWithTools(
-      parsed.data.message,
+    const history = await getChatHistory(userId);
+
+    const { reply, toolUsed, claims, riskAnalysis } = await callAIWithTools(
+      userMessage,
       openai,
-      req.user!.id,
-      req.user!.role
+      userId,
+      userRole,
+      history
     );
     
+    await addChatMessage(userId, 'user', userMessage);
+    await addChatMessage(userId, 'assistant', reply);
+
+    await writeAudit(pool, {
+      userId: req.user!.id,
+      action: "ai.chat",
+      entityType: "ai",
+      entityId: null,
+      metadata: { 
+        query: userMessage.slice(0, 200),
+        tool_used: toolUsed,
+        claims_count: claims?.length || 0,
+        history_length: history.length
+      },
+      req,
+    });
+
     const responseData: any = { reply };
     if (claims && claims.length > 0) {
       responseData.claims = claims;
@@ -815,24 +986,17 @@ router.post("/chat", requireAuth, async (req, res) => {
     if (toolUsed) {
       responseData.toolUsed = toolUsed;
     }
+    if (riskAnalysis) {
+      responseData.riskAnalysis = riskAnalysis;
+    }
     
-    await writeAudit(pool, {
-      userId: req.user!.id,
-      action: "ai.chat",
-      entityType: "ai",
-      entityId: null,
-      metadata: { 
-        query: parsed.data.message.slice(0, 200),
-        tool_used: toolUsed,
-        claims_count: claims?.length || 0
-      },
-      req,
-    });
-    
+    // ✅ 只发送一次响应
     res.json(responseData);
+    
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Unknown error";
     console.error("[ai/chat] Error:", e);
+    // ✅ 只发送一次错误响应
     res.json({
       reply: `I encountered an error: ${msg}. Please try again or rephrase your question.`,
     });
@@ -1038,15 +1202,6 @@ router.get("/predictions/summary", requireAuth, async (_req, res) => {
   }
 });
 
-function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-HK', {
-    style: 'currency',
-    currency: 'HKD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
-
 router.get("/test-vendor", requireAuth, async (req, res) => {
   const vendorName = req.query.name as string || "Hudson Valley Towing & Recovery Inc.";
     
@@ -1063,61 +1218,3 @@ router.get("/test-vendor", requireAuth, async (req, res) => {
 });
 
 export default router;
-
-function validateVendor(vendorName: string | ParsedQs | (string | ParsedQs)[]) {
-  throw new Error("Function not implemented.");
-}
-
-async function getClaimRiskAnalysis(claimId: string): Promise<{
-  riskAnalysisText: string[];
-  riskBand: string;
-  executiveRecommendation: string;
-} | undefined> {
-  
-  try {
-    const claimResult = await pool.query(
-      `SELECT fraud_risk_score, reference_number, claimed_amount, status FROM claims WHERE id = $1`,
-      [claimId]
-    );
-    
-    if (claimResult.rows.length === 0) {
-      return undefined;
-    }
-    
-    const claim = claimResult.rows[0];
-    const riskScore = claim.fraud_risk_score || 0;
-    const riskBand = deriveRiskBand(riskScore);
-    const executiveRecommendation = deriveExecutiveRecommendation(riskScore);
-    const riskAnalysisText = [];
-    
-    if (riskBand === 'Critical') {
-      riskAnalysisText.push('🔴 **CRITICAL RISK** - Immediate SIU referral required. Do not process payment.');
-    } else if (riskBand === 'High') {
-      riskAnalysisText.push('🟠 **HIGH RISK** - Enhanced due diligence and manager review required.');
-    } else if (riskBand === 'Medium') {
-      riskAnalysisText.push('🟡 **MEDIUM RISK** - Additional documentation and verification recommended.');
-    } else {
-      riskAnalysisText.push('🟢 **LOW RISK** - Standard verification path.');
-    }
-    
-    if (riskScore >= 70) {
-      riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - High risk claim detected.`);
-    } else if (riskScore >= 40) {
-      riskAnalysisText.push(`⚠️ **Fraud Risk Score**: ${riskScore}/100 - Moderate risk, recommend verification.`);
-    }
-    
-    if (claim.status === 'escalated') {
-      riskAnalysisText.push(`📌 **Status**: This claim has been escalated for manager review.`);
-    }
-    
-    return {
-      riskAnalysisText,
-      riskBand,
-      executiveRecommendation
-    };
-    
-  } catch (error) {
-    console.error("getClaimRiskAnalysis error:", error);
-    return undefined;
-  }
-}
