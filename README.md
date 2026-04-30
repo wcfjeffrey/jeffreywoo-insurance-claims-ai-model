@@ -403,82 +403,6 @@ SERPAPI_API_KEY=your_api_key_here   # Optional — falls back to simulation mode
 |Signaling Theory|Document upload requirements|Claimants signal claim validity through evidence|
 |Transaction Cost Economics|Automated workflows reduce processing costs|Minimizes friction in claims settlement|
 
-## ⭐ Finance Skills Strengthened
-
-### Technical Finance Skills
-
-|Skill|How This Project Develops It|Code Evidence|
-|-----|----------------------------|-------------|
-|HKFRS 17 Implementation|Full GMM with CSM, LRC, LIC|HKFRS 17 Calculator, CSM amortization logic|
-|Insurance Accounting|Journal entries for CSM release, interest accretion|Accounting entries generation|
-|Financial Statement Preparation|Balance sheet (LRC/LIC), P&L (CSM release)|Summary metrics dashboard|
-|Cash Flow Forecasting|Predictive modeling with confidence intervals|Forecast Data interface, net cash flow calculation|
-|Treasury Management|Payment scheduling, disbursement tracking, liquidity planning|HKMA integration, disbursement tracking|
-|Risk Management|Risk scoring, fraud detection, Risk-Adjusted Return on Capital (RAROC) calculation|ROI summary with risk metrics, AI validation service|
-|Actuarial Reserving|LRC/LIC calculation for unpaid claims|Claims status distribution, reserve tracking|
-|Financial Analysis|Loss ratio, processing time, approval rate|Dashboard KPIs and metrics|
-|Regulatory Reporting|Audit trail, compliance event logging|Audit and Compliance|
-|Internal Controls|Maker-checker, RBAC, audit log|Role-based permissions, status transitions|
-
-### Soft Finance Skills
-
-|Skill|How the Platform Develops It|
-|-----|----------------------------|
-|Stakeholder Management|Multiple user roles (Customer, Claim Officer, Accounting Staff, Manager)|
-|Process Improvement|Automated workflows replacing manual steps|
-|Data-Driven Decision Making|AI-powered risk scores guide claim decisions|
-|Compliance Mindset|Built-in regulatory requirements (HKFRS 17, Personal Data (Privacy) Ordinance)|
-|Cross-Functional Collaboration|Claims, accounting, compliance modules integrated|
-|Problem Solving|Complex CSM amortization calculations|
-|Attention to Detail|Audit trail completeness, data validation|
-
-## 🏗️ Technical Architecture
-
-### System Overview
-<pre lang="markdown">
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                              DOCKER + KUBERNETES                                │
-│  ┌───────────────────────────────────────────────────────────────────────────┐  │
-│  │  docker-compose.yml  │  Dockerfile (Frontend)  │  Dockerfile (Backend)    │  │
-│  │  ───────────────────────────────────────────────────────────────────────  │  │
-│  │  kubectl apply -f deploy/k8s/  │  Service  │  Ingress  │  ConfigMap       │  │
-│  └───────────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────────┘
-                                      │
-                                      ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                         FRONTEND (React 18 + TypeScript)                        │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │
-│  │ Claims   │ │   AI     │ │Accounting│ │Compliance│ │ HKFRS 17 │ │ Reports  │  │
-│  │          │ │          │ │          │ │          │ │Calculator│ │          │  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
-│  ┌───────────────────────────────────────────────────────────────────────────┐  │
-│  │                       Socket.IO (Real-time Updates)                       │  │
-│  └───────────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────────┘
-                                      │
-                                      ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                           BACKEND (Node.js + Express)                           │
-│  ┌──────────┐ ┌─────────┐ ┌─────────────┐ ┌──────────┐ ┌─────────┐ ┌──────────┐ │
-│  │ Claims   │ │   AI    │ │ HKMA Payment│ │ HKFRS 17 │ │  Audit  │ │Compliance│ │
-│  │ Service  │ │ Service │ │ Gateway     │ │ Service  │ │ Service │ │ Service  │ │
-│  └──────────┘ └─────────┘ └─────────────┘ └──────────┘ └─────────┘ └──────────┘ │
-│  ┌───────────────────────────────────────────────────────────────────────────┐  │
-│  │                        PostgreSQL (ACID compliant)                        │  │
-│  └───────────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────────┘
-                                      │
-                                      ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                           EXTERNAL INTEGRATIONS                                 │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │
-│  │  HKMA    │ │ OpenAI   │ │   SAP/   │ │ Document │ │  Email   │ │  Redis   │  │
-│  │  FPS     │ │ GPT-4    │ │  Oracle  │ │ Storage  │ │ Service  │ │ (Cache)  │  │
-│  │  (LIVE)  │ │ (LIVE)   │ │  (STUB)  │ │ (LIVE)   │ │ (PLANNED)│ │ (PLANNED)│  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
-└─────────────────────────────────────────────────────────────────────────────────┘</pre>
-
 ## 📐Data Flow and Logic Sequence
 
 The following diagram illustrates the end-to-end system flow — from authentication through claim submission, AI fraud detection, HKFRS 17 accounting, HKMA payment gateway integration, conversational AI, and audit compliance — directly mapping to the processes described throughout this documentation and validated by real-world implementations like the FWD x CCB bancassurance case.
@@ -659,6 +583,82 @@ flowchart TD
     F19 --> H1
     G17 --> H1
 ```
+
+## ⭐ Finance Skills Strengthened
+
+### Technical Finance Skills
+
+|Skill|How This Project Develops It|Code Evidence|
+|-----|----------------------------|-------------|
+|HKFRS 17 Implementation|Full GMM with CSM, LRC, LIC|HKFRS 17 Calculator, CSM amortization logic|
+|Insurance Accounting|Journal entries for CSM release, interest accretion|Accounting entries generation|
+|Financial Statement Preparation|Balance sheet (LRC/LIC), P&L (CSM release)|Summary metrics dashboard|
+|Cash Flow Forecasting|Predictive modeling with confidence intervals|Forecast Data interface, net cash flow calculation|
+|Treasury Management|Payment scheduling, disbursement tracking, liquidity planning|HKMA integration, disbursement tracking|
+|Risk Management|Risk scoring, fraud detection, Risk-Adjusted Return on Capital (RAROC) calculation|ROI summary with risk metrics, AI validation service|
+|Actuarial Reserving|LRC/LIC calculation for unpaid claims|Claims status distribution, reserve tracking|
+|Financial Analysis|Loss ratio, processing time, approval rate|Dashboard KPIs and metrics|
+|Regulatory Reporting|Audit trail, compliance event logging|Audit and Compliance|
+|Internal Controls|Maker-checker, RBAC, audit log|Role-based permissions, status transitions|
+
+### Soft Finance Skills
+
+|Skill|How the Platform Develops It|
+|-----|----------------------------|
+|Stakeholder Management|Multiple user roles (Customer, Claim Officer, Accounting Staff, Manager)|
+|Process Improvement|Automated workflows replacing manual steps|
+|Data-Driven Decision Making|AI-powered risk scores guide claim decisions|
+|Compliance Mindset|Built-in regulatory requirements (HKFRS 17, Personal Data (Privacy) Ordinance)|
+|Cross-Functional Collaboration|Claims, accounting, compliance modules integrated|
+|Problem Solving|Complex CSM amortization calculations|
+|Attention to Detail|Audit trail completeness, data validation|
+
+## 🏗️ Technical Architecture
+
+### System Overview
+<pre lang="markdown">
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              DOCKER + KUBERNETES                                │
+│  ┌───────────────────────────────────────────────────────────────────────────┐  │
+│  │  docker-compose.yml  │  Dockerfile (Frontend)  │  Dockerfile (Backend)    │  │
+│  │  ───────────────────────────────────────────────────────────────────────  │  │
+│  │  kubectl apply -f deploy/k8s/  │  Service  │  Ingress  │  ConfigMap       │  │
+│  └───────────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         FRONTEND (React 18 + TypeScript)                        │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │
+│  │ Claims   │ │   AI     │ │Accounting│ │Compliance│ │ HKFRS 17 │ │ Reports  │  │
+│  │          │ │          │ │          │ │          │ │Calculator│ │          │  │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
+│  ┌───────────────────────────────────────────────────────────────────────────┐  │
+│  │                       Socket.IO (Real-time Updates)                       │  │
+│  └───────────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           BACKEND (Node.js + Express)                           │
+│  ┌──────────┐ ┌─────────┐ ┌─────────────┐ ┌──────────┐ ┌─────────┐ ┌──────────┐ │
+│  │ Claims   │ │   AI    │ │ HKMA Payment│ │ HKFRS 17 │ │  Audit  │ │Compliance│ │
+│  │ Service  │ │ Service │ │ Gateway     │ │ Service  │ │ Service │ │ Service  │ │
+│  └──────────┘ └─────────┘ └─────────────┘ └──────────┘ └─────────┘ └──────────┘ │
+│  ┌───────────────────────────────────────────────────────────────────────────┐  │
+│  │                        PostgreSQL (ACID compliant)                        │  │
+│  └───────────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           EXTERNAL INTEGRATIONS                                 │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │
+│  │  HKMA    │ │ OpenAI   │ │   SAP/   │ │ Document │ │  Email   │ │  Redis   │  │
+│  │  FPS     │ │ GPT-4    │ │  Oracle  │ │ Storage  │ │ Service  │ │ (Cache)  │  │
+│  │  (LIVE)  │ │ (LIVE)   │ │  (STUB)  │ │ (LIVE)   │ │ (PLANNED)│ │ (PLANNED)│  │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────┘</pre>
 
 ### Integration Methods (SAP/Oracle)
 
