@@ -405,7 +405,7 @@ SERPAPI_API_KEY=your_api_key_here   # Optional — falls back to simulation mode
 
 ## 📐Data Flow and Logic Sequence
 
-The following diagram illustrates the end-to-end system flow — from authentication through claim submission, AI fraud detection, HKFRS 17 accounting, HKMA payment gateway integration, conversational AI, and audit compliance — directly mapping to the processes described throughout this documentation and validated by real-world implementations like the FWD x CCB bancassurance case.
+The following diagram illustrates the end-to-end system flow — from authentication through claim submission, AI fraud detection, HKFRS 17 accounting, HKMA payment gateway integration, conversational AI, and audit compliance — directly mapping to the processes described throughout this documentation and validated by real-world implementations like the FWD x CCB bancassurance case in the bottom section.
 
 > **How to read this diagram:** The 8 phases are by functional area:
 > - PHASE 1: Authentication & RBAC
