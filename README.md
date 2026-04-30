@@ -479,6 +479,187 @@ SERPAPI_API_KEY=your_api_key_here   # Optional — falls back to simulation mode
 │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
 └─────────────────────────────────────────────────────────────────────────────────┘</pre>
 
+## 📐Data Flow and Logic Sequence
+
+The following diagram illustrates the end-to-end system flow — from authentication through claim submission, AI fraud detection, HKFRS 17 accounting, HKMA payment gateway integration, conversational AI, and audit compliance — directly mapping to the processes described throughout this documentation and validated by real-world implementations like the FWD x CCB bancassurance case.
+
+> **How to read this diagram:** The 8 phases are by functional area:
+> - PHASE 1: Authentication & RBAC
+> - PHASE 2: Claim Submission (Customer)
+> - PHASE 3: AI Fraud Detection (Automatic)
+> - PHASE 4: Claim Review Workflow
+> - PHASE 5: HKFRS 17 Accounting
+> - PHASE 6: Payment & HKMA Gateway
+> - PHASE 7: AI Conversational Assistant
+> - PHASE 8: Audit & Compliance
+
+```mermaid
+flowchart TD
+    subgraph PHASE1["PHASE 1: Authentication & RBAC"]
+        A1["1. User opens http://localhost:5173"] --> A2["2. Browser requests /"]
+        A2 --> A3["3. Backend serves index.html + React bundle"]
+        A3 --> A4["4. User sees login page"]
+        A4 --> A5["5. User enters credentials & selects language"]
+        A5 --> A6["6. POST /api/auth/login"]
+        A6 --> A7["7. Backend validates against PostgreSQL"]
+        A7 --> A8["8. JWT token generated with role"]
+        A8 --> A9["9. Redis session initialized (1hr TTL)"]
+        A9 --> A10["10. Redirect to role-specific dashboard"]
+    end
+
+    subgraph PHASE2["PHASE 2: Claim Submission (Customer)"]
+        B1["11. Click 'New Claim' & select policy"] --> B2["12. Multi-step claim form displayed"]
+        B2 --> B3["13. Enter claim details (date, amount, description)"]
+        B3 --> B4["14. Upload documents (PDF/JPG/PNG/DOC/DOCX)"]
+        B4 --> B5["15. POST /api/claims (multipart/form-data)"]
+        B5 --> B6["16. Backend creates claim with status 'DRAFT'"]
+        B6 --> B7["17. Claim saved to PostgreSQL"]
+        B7 --> B8["18. Click 'Submit'"]
+        B8 --> B9["19. POST /api/claims/:id/submit"]
+        B9 --> B10["20. Status updated to 'SUBMITTED'"]
+        B10 --> B11["21. Audit trail recorded"]
+        B11 --> B12["22. Socket.IO notification sent"]
+    end
+
+    subgraph PHASE3["PHASE 3: AI Fraud Detection (Automatic)"]
+        C1["23. Backend triggers AI validation service"] --> C2["24. Vendor extraction from documents"]
+        C2 --> C3["25. SerpApi Google Maps verification"]
+        C3 --> C4["26. Returns rating, address, license"]
+        
+        C1 --> C5["27. Scan for 50+ fraud indicators"]
+        C5 --> C6["28. Calculate 4 component scores"]
+        
+        C6 --> C7["Amount Risk (25%)"]
+        C6 --> C8["Vendor Risk (35%)"]
+        C6 --> C9["Document Risk (20%)"]
+        C6 --> C10["Pattern Risk (20%)"]
+        
+        C7 --> C11["29. Total fraud score 0-100"]
+        C8 --> C11
+        C9 --> C11
+        C10 --> C11
+        
+        C11 --> C12["30. Determine risk level"]
+        C12 --> C13{"Score 0-39: Low"}
+        C12 --> C14{"Score 40-59: Medium"}
+        C12 --> C15{"Score 60-79: High"}
+        C12 --> C16{"Score 80-100: Critical"}
+        
+        C13 --> C17["31. Auto-route to fast track"]
+        C15 --> C18["31. Auto-route to SIU referral"]
+    end
+
+    subgraph PHASE4["PHASE 4: Claim Review Workflow"]
+        D1["32. Officer views dashboard"] --> D2["33. GET /api/claims (filtered by role)"]
+        D2 --> D3["34. Claims with risk scores displayed"]
+        D3 --> D4["35. Officer selects claim"]
+        D4 --> D5["36. GET /api/claims/:id"]
+        D5 --> D6["37. Full claim with AI report shown"]
+        
+        D6 --> D7{"38. Decision based on risk"}
+        
+        D7 -->|Low Risk| D8["Approve with notes"]
+        D8 --> D9["POST /api/claims/:id/transition"]
+        D9 --> D10["Status: APPROVED"]
+        D10 --> D11["Audit trail: approval recorded"]
+        
+        D7 -->|High Risk| D12["Escalate to Manager"]
+        D12 --> D13["POST /api/claims/:id/transition"]
+        D13 --> D14["Status: ESCALATED"]
+        D14 --> D15["Manager dashboard notified"]
+        
+        D7 -->|Invalid| D16["Reject with reason"]
+        D16 --> D17["POST /api/claims/:id/transition"]
+        D17 --> D18["Status: REJECTED"]
+    end
+
+    subgraph PHASE5["PHASE 5: HKFRS 17 Accounting"]
+        E1["39. Accounting staff opens HKFRS 17 page"] --> E2["40. GET /api/hkfrs17/compliance"]
+        E2 --> E3["41. PostgreSQL returns policies & claims"]
+        E3 --> E4["42. Backend calculates CSM"]
+        E4 --> E5["Interest Accretion = Opening CSM × Rate"]
+        E5 --> E6["Amortization = (CSM + Interest) × Coverage%"]
+        E6 --> E7["Closing CSM = Opening + Interest - Amortization"]
+        E7 --> E8["43. Calculate LRC & LIC"]
+        E8 --> E9["44. Generate journal entries"]
+        E9 --> E10["Dr. Insurance finance expense | Cr. CSM"]
+        E9 --> E11["Dr. CSM | Cr. Insurance revenue"]
+        E9 --> E12["Dr. LIC | Cr. Cash"]
+        E10 --> E13["45. Sync to SAP/Oracle (GL)"]
+        E11 --> E13
+        E12 --> E13
+    end
+
+    subgraph PHASE6["PHASE 6: Payment & HKMA Gateway"]
+        F1["46. Approved claim triggers payment"] --> F2["47. Create disbursement record"]
+        F2 --> F3["48. Save to PostgreSQL (payment pending)"]
+        F3 --> F4["49. Accounting staff views pending payments"]
+        F4 --> F5["50. GET /api/accounting/disbursements/pending"]
+        F5 --> F6["51. Select claim & click 'Process Payment'"]
+        F6 --> F7["52. POST /api/accounting/disbursements/from-claim/:claimId"]
+        F7 --> F8["53. Create unique disbursement reference"]
+        F8 --> F9["54. Submit to HKMA FPS API"]
+        
+        F9 --> F10{"55. Mode?"}
+        F10 -->|Real API| F11["HKMA returns transaction ID"]
+        F11 --> F12["Poll for settlement"]
+        F12 --> F13["Status: COMPLETED"]
+        
+        F10 -->|Simulation| F14["Mock payment processed"]
+        F14 --> F15["Status: COMPLETED"]
+        
+        F13 --> F16["56. Claim status: PAID"]
+        F15 --> F16
+        F16 --> F17["57. Audit trail: payment recorded"]
+        F17 --> F18["58. Sync to SAP/Oracle (GL update)"]
+        F18 --> F19["59. Socket.IO notification sent"]
+    end
+
+    subgraph PHASE7["PHASE 7: AI Conversational Assistant"]
+        G1["60. User opens AI Assistant tab"] --> G2["61. GET session from Redis"]
+        G2 --> G3["62. Returns last 20 messages (1hr TTL)"]
+        G3 --> G4["63. Chat interface displayed"]
+        G4 --> G5["64. User types: 'Show me CLM-2026-0103'"]
+        G5 --> G6["65. POST /api/ai/chat with sessionId"]
+        G6 --> G7["66. Backend retrieves conversation history"]
+        G7 --> G8["67. Send prompt + history to GPT-4"]
+        G8 --> G9["68. GPT-4 returns claim details + risk analysis"]
+        G9 --> G10["69. Store updated history in Redis"]
+        G10 --> G11["70. Response displayed to user"]
+        
+        G11 --> G12["71. User asks: 'Show me vendors for that claim'"]
+        G12 --> G13["72. Backend retrieves history WITH context"]
+        G13 --> G14["73. GPT-4 understands 'that claim' reference"]
+        G14 --> G15["74. Returns vendor verification details"]
+        G15 --> G16["75. History updated again"]
+        G16 --> G17["76. Vendor info displayed"]
+    end
+
+    subgraph PHASE8["PHASE 8: Audit & Compliance"]
+        H1["77. Manager opens Audit Trail"] --> H2["78. GET /api/audit with filters"]
+        H2 --> H3["79. PostgreSQL returns immutable log"]
+        H3 --> H4["80. All user actions with timestamps"]
+        H4 --> H5["81. Chronological audit log displayed"]
+        H5 --> H6["82. Click 'Export for Regulatory Review'"]
+        H6 --> H7["83. GET /api/reports/compliance_report.xlsx"]
+        H7 --> H8["84. Backend gathers all compliance data"]
+        H8 --> H9["85. Generate Excel/PDF report"]
+        H9 --> H10["86. File download triggered"]
+    end
+
+    A10 --> B1
+    B12 --> C1
+    C17 --> D1
+    C18 --> D1
+    D10 --> E1
+    D10 --> F1
+    D14 --> D1
+    D18 --> D1
+    E13 --> H1
+    F19 --> H1
+    G17 --> H1
+```
+
 ### Integration Methods (SAP/Oracle)
 
 |Method|SAP|Oracle|Best For|
@@ -1086,187 +1267,6 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 - **FWD does NOT connect directly to HKMA.** Instead, it connects to **CCB (Asia)'s API, which follows the HKMA FPS standard.**
 - This app adopts the **same abstraction design**: `HKMA` represents the **standard layer**, while deployment maps it to a specific bank (e.g., `CCB`).
 - This is precisely why this app **requires no core code changes when switching or adding banks** — as long as the bank follows the HKMA standard, seamless integration is possible.
-
-## 📐Data Flow and Logic Sequence
-
-The following diagram illustrates the end-to-end system flow — from authentication through claim submission, AI fraud detection, HKFRS 17 accounting, HKMA payment gateway integration, conversational AI, and audit compliance — directly mapping to the processes described throughout this documentation and validated by real-world implementations like the FWD x CCB bancassurance case.
-
-> **How to read this diagram:** The 8 phases are by functional area:
-> - PHASE 1: Authentication & RBAC
-> - PHASE 2: Claim Submission (Customer)
-> - PHASE 3: AI Fraud Detection (Automatic)
-> - PHASE 4: Claim Review Workflow
-> - PHASE 5: HKFRS 17 Accounting
-> - PHASE 6: Payment & HKMA Gateway
-> - PHASE 7: AI Conversational Assistant
-> - PHASE 8: Audit & Compliance
-
-```mermaid
-flowchart TD
-    subgraph PHASE1["PHASE 1: Authentication & RBAC"]
-        A1["1. User opens http://localhost:5173"] --> A2["2. Browser requests /"]
-        A2 --> A3["3. Backend serves index.html + React bundle"]
-        A3 --> A4["4. User sees login page"]
-        A4 --> A5["5. User enters credentials & selects language"]
-        A5 --> A6["6. POST /api/auth/login"]
-        A6 --> A7["7. Backend validates against PostgreSQL"]
-        A7 --> A8["8. JWT token generated with role"]
-        A8 --> A9["9. Redis session initialized (1hr TTL)"]
-        A9 --> A10["10. Redirect to role-specific dashboard"]
-    end
-
-    subgraph PHASE2["PHASE 2: Claim Submission (Customer)"]
-        B1["11. Click 'New Claim' & select policy"] --> B2["12. Multi-step claim form displayed"]
-        B2 --> B3["13. Enter claim details (date, amount, description)"]
-        B3 --> B4["14. Upload documents (PDF/JPG/PNG/DOC/DOCX)"]
-        B4 --> B5["15. POST /api/claims (multipart/form-data)"]
-        B5 --> B6["16. Backend creates claim with status 'DRAFT'"]
-        B6 --> B7["17. Claim saved to PostgreSQL"]
-        B7 --> B8["18. Click 'Submit'"]
-        B8 --> B9["19. POST /api/claims/:id/submit"]
-        B9 --> B10["20. Status updated to 'SUBMITTED'"]
-        B10 --> B11["21. Audit trail recorded"]
-        B11 --> B12["22. Socket.IO notification sent"]
-    end
-
-    subgraph PHASE3["PHASE 3: AI Fraud Detection (Automatic)"]
-        C1["23. Backend triggers AI validation service"] --> C2["24. Vendor extraction from documents"]
-        C2 --> C3["25. SerpApi Google Maps verification"]
-        C3 --> C4["26. Returns rating, address, license"]
-        
-        C1 --> C5["27. Scan for 50+ fraud indicators"]
-        C5 --> C6["28. Calculate 4 component scores"]
-        
-        C6 --> C7["Amount Risk (25%)"]
-        C6 --> C8["Vendor Risk (35%)"]
-        C6 --> C9["Document Risk (20%)"]
-        C6 --> C10["Pattern Risk (20%)"]
-        
-        C7 --> C11["29. Total fraud score 0-100"]
-        C8 --> C11
-        C9 --> C11
-        C10 --> C11
-        
-        C11 --> C12["30. Determine risk level"]
-        C12 --> C13{"Score 0-39: Low"}
-        C12 --> C14{"Score 40-59: Medium"}
-        C12 --> C15{"Score 60-79: High"}
-        C12 --> C16{"Score 80-100: Critical"}
-        
-        C13 --> C17["31. Auto-route to fast track"]
-        C15 --> C18["31. Auto-route to SIU referral"]
-    end
-
-    subgraph PHASE4["PHASE 4: Claim Review Workflow"]
-        D1["32. Officer views dashboard"] --> D2["33. GET /api/claims (filtered by role)"]
-        D2 --> D3["34. Claims with risk scores displayed"]
-        D3 --> D4["35. Officer selects claim"]
-        D4 --> D5["36. GET /api/claims/:id"]
-        D5 --> D6["37. Full claim with AI report shown"]
-        
-        D6 --> D7{"38. Decision based on risk"}
-        
-        D7 -->|Low Risk| D8["Approve with notes"]
-        D8 --> D9["POST /api/claims/:id/transition"]
-        D9 --> D10["Status: APPROVED"]
-        D10 --> D11["Audit trail: approval recorded"]
-        
-        D7 -->|High Risk| D12["Escalate to Manager"]
-        D12 --> D13["POST /api/claims/:id/transition"]
-        D13 --> D14["Status: ESCALATED"]
-        D14 --> D15["Manager dashboard notified"]
-        
-        D7 -->|Invalid| D16["Reject with reason"]
-        D16 --> D17["POST /api/claims/:id/transition"]
-        D17 --> D18["Status: REJECTED"]
-    end
-
-    subgraph PHASE5["PHASE 5: HKFRS 17 Accounting"]
-        E1["39. Accounting staff opens HKFRS 17 page"] --> E2["40. GET /api/hkfrs17/compliance"]
-        E2 --> E3["41. PostgreSQL returns policies & claims"]
-        E3 --> E4["42. Backend calculates CSM"]
-        E4 --> E5["Interest Accretion = Opening CSM × Rate"]
-        E5 --> E6["Amortization = (CSM + Interest) × Coverage%"]
-        E6 --> E7["Closing CSM = Opening + Interest - Amortization"]
-        E7 --> E8["43. Calculate LRC & LIC"]
-        E8 --> E9["44. Generate journal entries"]
-        E9 --> E10["Dr. Insurance finance expense | Cr. CSM"]
-        E9 --> E11["Dr. CSM | Cr. Insurance revenue"]
-        E9 --> E12["Dr. LIC | Cr. Cash"]
-        E10 --> E13["45. Sync to SAP/Oracle (GL)"]
-        E11 --> E13
-        E12 --> E13
-    end
-
-    subgraph PHASE6["PHASE 6: Payment & HKMA Gateway"]
-        F1["46. Approved claim triggers payment"] --> F2["47. Create disbursement record"]
-        F2 --> F3["48. Save to PostgreSQL (payment pending)"]
-        F3 --> F4["49. Accounting staff views pending payments"]
-        F4 --> F5["50. GET /api/accounting/disbursements/pending"]
-        F5 --> F6["51. Select claim & click 'Process Payment'"]
-        F6 --> F7["52. POST /api/accounting/disbursements/from-claim/:claimId"]
-        F7 --> F8["53. Create unique disbursement reference"]
-        F8 --> F9["54. Submit to HKMA FPS API"]
-        
-        F9 --> F10{"55. Mode?"}
-        F10 -->|Real API| F11["HKMA returns transaction ID"]
-        F11 --> F12["Poll for settlement"]
-        F12 --> F13["Status: COMPLETED"]
-        
-        F10 -->|Simulation| F14["Mock payment processed"]
-        F14 --> F15["Status: COMPLETED"]
-        
-        F13 --> F16["56. Claim status: PAID"]
-        F15 --> F16
-        F16 --> F17["57. Audit trail: payment recorded"]
-        F17 --> F18["58. Sync to SAP/Oracle (GL update)"]
-        F18 --> F19["59. Socket.IO notification sent"]
-    end
-
-    subgraph PHASE7["PHASE 7: AI Conversational Assistant"]
-        G1["60. User opens AI Assistant tab"] --> G2["61. GET session from Redis"]
-        G2 --> G3["62. Returns last 20 messages (1hr TTL)"]
-        G3 --> G4["63. Chat interface displayed"]
-        G4 --> G5["64. User types: 'Show me CLM-2026-0103'"]
-        G5 --> G6["65. POST /api/ai/chat with sessionId"]
-        G6 --> G7["66. Backend retrieves conversation history"]
-        G7 --> G8["67. Send prompt + history to GPT-4"]
-        G8 --> G9["68. GPT-4 returns claim details + risk analysis"]
-        G9 --> G10["69. Store updated history in Redis"]
-        G10 --> G11["70. Response displayed to user"]
-        
-        G11 --> G12["71. User asks: 'Show me vendors for that claim'"]
-        G12 --> G13["72. Backend retrieves history WITH context"]
-        G13 --> G14["73. GPT-4 understands 'that claim' reference"]
-        G14 --> G15["74. Returns vendor verification details"]
-        G15 --> G16["75. History updated again"]
-        G16 --> G17["76. Vendor info displayed"]
-    end
-
-    subgraph PHASE8["PHASE 8: Audit & Compliance"]
-        H1["77. Manager opens Audit Trail"] --> H2["78. GET /api/audit with filters"]
-        H2 --> H3["79. PostgreSQL returns immutable log"]
-        H3 --> H4["80. All user actions with timestamps"]
-        H4 --> H5["81. Chronological audit log displayed"]
-        H5 --> H6["82. Click 'Export for Regulatory Review'"]
-        H6 --> H7["83. GET /api/reports/compliance_report.xlsx"]
-        H7 --> H8["84. Backend gathers all compliance data"]
-        H8 --> H9["85. Generate Excel/PDF report"]
-        H9 --> H10["86. File download triggered"]
-    end
-
-    A10 --> B1
-    B12 --> C1
-    C17 --> D1
-    C18 --> D1
-    D10 --> E1
-    D10 --> F1
-    D14 --> D1
-    D18 --> D1
-    E13 --> H1
-    F19 --> H1
-    G17 --> H1
-```
 
 ## 📚 Related Resources
 
