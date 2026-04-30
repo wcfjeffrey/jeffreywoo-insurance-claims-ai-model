@@ -1087,6 +1087,251 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 - This app adopts the **same abstraction design**: `HKMA` represents the **standard layer**, while deployment maps it to a specific bank (e.g., `CCB`).
 - This is precisely why this app **requires no core code changes when switching or adding banks** — as long as the bank follows the HKMA standard, seamless integration is possible.
 
+## Data Flow & Logic Sequence of This Code
+
+sequenceDiagram
+    participant User
+    participant Browser as Web Browser
+    participant HTML as Page Structure (index.html)
+    participant CSS as Styling Rules (global.css)
+    participant JS as Frontend Logic (React/TSX)
+    participant Backend as Backend Server (Express/Node.js)
+    participant DB as PostgreSQL Database
+    participant Redis as Redis Cache (Session Memory)
+    participant AI as AI Services (OpenAI GPT + SerpApi)
+    participant HKMA as HKMA Payment Gateway (FPS API)
+    participant ERP as ERP System (SAP/Oracle Stub)
+
+    Note over User,ERP: PHASE 1: AUTHENTICATION & ROLE-BASED ACCESS
+
+    User->>Browser: 1. Opens http://localhost:5173
+    Browser->>Backend: GET request for `/`
+    Backend-->>Browser: Serves Page Structure (index.html)
+    Browser->>HTML: Parses DOM
+    HTML->>CSS: Requests Styling Rules
+    CSS-->>Browser: Provides styling
+    HTML->>JS: Requests Frontend Logic (React bundle)
+    JS-->>Browser: Provides React components
+    Browser-->>User: 2. Displays login page (English/Chinese)
+
+    User->>JS: 3. Enters credentials & selects language
+    JS->>Backend: 4. POST /api/auth/login with {email, password}
+    Backend->>DB: 5. Validates user credentials
+    DB-->>Backend: 6. Returns user role (Customer/Officer/Accounting/Manager)
+    Backend->>Backend: 7. Generates JWT token
+    Backend-->>JS: 8. Returns JWT + role + permissions
+    JS->>JS: 9. Stores token in localStorage/context
+    JS->>Redis: 10. Initializes session (chat history, user context)
+    Redis-->>JS: Session confirmed
+    JS-->>User: 11. Redirects to role-specific dashboard
+
+    Note over User,ERP: PHASE 2: CLAIM SUBMISSION (Customer Role)
+
+    User->>JS: 12. Clicks "New Claim" & selects policy
+    JS->>JS: 13. Displays multi-step claim form
+    User->>JS: 14. Enters claim details (date, description, amount)<br/>Uploads documents (PDF/JPG/PNG/DOC/DOCX)
+    JS->>JS: 15. Validates file size & formats
+    JS->>Backend: 16. POST /api/claims (multipart/form-data)
+    Backend->>Backend: 17. Creates claim with status "DRAFT"
+    Backend->>DB: 18. Stores claim record & document references
+    DB-->>Backend: Returns claim ID
+    Backend-->>JS: 19. Returns claim ID & initial draft
+    JS-->>User: 20. Displays draft claim with option to submit
+
+    User->>JS: 21. Reviews draft & clicks "Submit"
+    JS->>Backend: 22. POST /api/claims/:id/submit
+    Backend->>DB: 23. Updates status to "SUBMITTED"
+    Backend->>Backend: 24. Records timestamp in audit log
+    Backend-->>JS: 25. Confirmation
+    JS->>JS: 26. Triggers Socket.IO real-time update
+    JS-->>User: 27. "Claim submitted successfully"
+
+    Note over User,ERP: PHASE 3: AI-POWERED FRAUD DETECTION & VALIDATION (Automatic)
+
+    Backend->>Backend: 28. Triggers AI validation service (async)
+    
+    par Parallel AI Validation
+        Backend->>AI: 29a. Extracts vendor names from documents
+        AI->>AI: 29b. Calls SerpApi for Google Maps verification
+        AI-->>Backend: 29c. Returns vendor verification (rating, address, license)
+        
+        Backend->>AI: 30a. Sends claim details for fraud analysis
+        AI->>AI: 30b. Scans for 50+ fraud indicators
+        AI-->>Backend: 30c. Returns fraud risk score (0-100)
+        
+        Backend->>Backend: 31a. Calculates amount risk (25% weight)
+        Backend->>Backend: 31b. Calculates vendor risk (35% weight)
+        Backend->>Backend: 31c. Calculates document risk (20% weight)
+        Backend->>Backend: 31d. Calculates pattern risk (20% weight)
+    end
+    
+    Backend->>DB: 32. Stores comprehensive risk score & components
+    Backend->>Backend: 33. Determines risk level based on score:<br/>0-39: Low | 40-59: Medium<br/>60-79: High | 80-100: Critical
+    Backend->>Backend: 34. Auto-routes claim based on risk level<br/>Low → Fast track | High → SIU referral
+
+    Backend-->>JS: 35. Sends Socket.IO notification (fraud analysis complete)
+    JS-->>User: 36. Displays AI validation report with risk score
+
+    Note over User,ERP: PHASE 4: CLAIM REVIEW & WORKFLOW (Officer/Manager Role)
+
+    User->>JS: 37. Officer logs in & views assigned claims
+    JS->>Backend: 38. GET /api/claims (filtered by role)
+    Backend->>DB: 39. Retrieves claims with status "SUBMITTED"
+    DB-->>Backend: 40. Returns claims list
+    Backend-->>JS: 41. Returns claims with AI risk scores
+    JS-->>User: 42. Displays claims dashboard with risk indicators
+
+    User->>JS: 43. Officer selects claim & reviews details
+    JS->>Backend: 44. GET /api/claims/:id
+    Backend->>DB: 45. Retrieves full claim with documents
+    Backend-->>JS: 46. Returns claim + AI validation report
+    JS-->>User: 47. Displays claim detail with risk breakdown
+
+    alt Low Risk → Approve
+        User->>JS: 48a. Clicks "Approve" with notes
+        JS->>Backend: 49a. POST /api/claims/:id/transition with {status: "APPROVED"}
+        Backend->>DB: 50a. Updates status to "APPROVED"
+        Backend->>Backend: 51a. Records approval in audit trail
+        Backend->>Backend: 52a. Triggers payment creation
+        
+    else High Risk → Escalate
+        User->>JS: 48b. Clicks "Escalate" (for claims > threshold or fraud risk > 60)
+        JS->>Backend: 49b. POST /api/claims/:id/transition with {status: "ESCALATED"}
+        Backend->>DB: 50b. Updates status to "ESCALATED"
+        Backend-->>JS: 51b. Notifies manager dashboard
+        JS-->>User: 52b. "Claim escalated for manager review"
+        
+    else Insufficient Evidence → Reject
+        User->>JS: 48c. Clicks "Reject" with reason
+        JS->>Backend: 49c. POST /api/claims/:id/transition with {status: "REJECTED"}
+        Backend->>DB: 50c. Updates status to "REJECTED"
+        Backend->>Backend: 51c. Sends rejection notification
+    end
+
+    Note over User,ERP: PHASE 5: HKFRS 17 ACCOUNTING & CSM CALCULATION
+
+    User->>JS: 53. Accounting staff navigates to HKFRS 17 page
+    JS->>Backend: 54. GET /api/hkfrs17/compliance
+    Backend->>DB: 55. Retrieves active policies & claims
+    DB-->>Backend: 56. Returns policy portfolio data
+    Backend->>Backend: 57. Calculates CSM components:<br/>- Interest Accretion = Opening CSM × Discount Rate<br/>- Amortization = (CSM + Interest) × Coverage %<br/>- Closing CSM = Opening + Interest - Amortization
+    Backend->>Backend: 58. Calculates LRC & LIC
+    Backend->>Backend: 59. Generates accounting journal entries:<br/>- Dr. Insurance finance expense | Cr. CSM<br/>- Dr. CSM | Cr. Insurance revenue<br/>- Dr. LIC | Cr. Cash (for payments)
+    Backend->>ERP: 60. Syncs journal entries to ERP (SAP/Oracle stub)
+    Backend-->>JS: 61. Returns HKFRS 17 compliance report
+    JS-->>User: 62. Displays CSM amortization table & journal entries
+
+    Note over User,ERP: PHASE 6: PAYMENT CREATION & HKMA GATEWAY
+
+    Backend->>Backend: 63. For approved claims, creates disbursement record
+    Backend->>DB: 64. Creates payment pending record
+    Backend->>Backend: 65. Calculates payout (applies tax/FX if configured)
+    
+    User->>JS: 66. Accounting staff views "Payment Pending" claims
+    JS->>Backend: 67. GET /api/accounting/disbursements/pending
+    Backend-->>JS: 68. Returns pending disbursements
+    JS-->>User: 69. Displays payment queue
+
+    User->>JS: 70. Selects claim & clicks "Process Payment"
+    JS->>Backend: 71. POST /api/accounting/disbursements/from-claim/:claimId
+    Backend->>Backend: 72. Creates disbursement with unique reference
+    Backend->>HKMA: 73. Submits payment via FPS Open API<br/>(or simulation if HKMA_OPENAPI_BASE_URL unset)
+    
+    alt HKMA Integration Active
+        HKMA-->>Backend: 74a. Returns transaction ID & status "PROCESSING"
+        Backend->>Backend: 75a. Polls HKMA for settlement confirmation
+        HKMA-->>Backend: 76a. Returns "COMPLETED" with settlement timestamp
+        Backend->>DB: 77a. Updates claim status to "PAID"
+        
+    else Simulation Mode
+        Backend->>Backend: 74b. Simulates payment processing
+        Backend->>DB: 75b. Updates claim status to "PAID"
+    end
+    
+    Backend->>Backend: 78. Records payment in audit trail
+    Backend->>ERP: 79. Syncs payment to ERP (GL update)
+    Backend-->>JS: 80. Sends Socket.IO notification (claim paid)
+    JS-->>User: 81. Displays "Payment completed" confirmation
+
+    Note over User,ERP: PHASE 7: AI CONVERSATIONAL ASSISTANT (With Context Memory)
+
+    User->>JS: 82. Navigates to AI Assistant tab
+    JS->>Backend: 83. GET session from Redis
+    Redis-->>JS: 84. Returns conversation history (last 20 messages)
+    JS-->>User: 85. Displays chat interface with context
+
+    User->>JS: 86. Types "Show me CLM-2026-0103"
+    JS->>Backend: 87. POST /api/ai/chat with {message, sessionId}
+    Backend->>Redis: 88. Retrieves conversation history
+    Backend->>AI: 89. Sends prompt + history to GPT-4
+    AI-->>Backend: 90. Returns formatted response with claim details
+    Backend->>Redis: 91. Stores updated conversation history (1hr TTL)
+    Backend-->>JS: 92. Returns AI response
+    JS-->>User: 93. Displays claim details & risk analysis
+
+    User->>JS: 94. Types "Show me the vendors for that claim"
+    JS->>Backend: 95. POST /api/ai/chat with follow-up
+    Backend->>Redis: 96. Retrieves history (includes previous claim context)
+    Backend->>AI: 97. Sends prompt with context reference "that claim"
+    AI-->>Backend: 98. Returns vendor information (Hudson Valley Towing)
+    Backend->>Redis: 99. Updates history again
+    Backend-->>JS: 100. Returns vendor details
+    JS-->>User: 101. Displays verified vendor information
+
+    Note over User,ERP: PHASE 8: NATURAL LANGUAGE QUERY (Stateless)
+
+    User->>JS: 102. Navigates to Natural Language Query tab
+    User->>JS: 103. Types "Show me all pending claims"
+    JS->>Backend: 104. POST /api/ai/nl-query with {query}
+    Backend->>Backend: 105. Parses query (no Redis/history)
+    Backend->>AI: 106. Converts to SQL (text-to-query)
+    AI-->>Backend: 107. Returns generated SQL
+    Backend->>DB: 108. Executes parameterized query
+    DB-->>Backend: 109. Returns results
+    Backend-->>JS: 110. Returns tabular results + SQL
+    JS-->>User: 111. Displays results table (no follow-up context)
+
+    Note over User,ERP: PHASE 9: REGULATORY COMPLIANCE & AUDIT
+
+    User->>JS: 112. Manager navigates to Audit Trail
+    JS->>Backend: 113. GET /api/audit (with filters)
+    Backend->>DB: 114. Retrieves immutable audit log
+    DB-->>Backend: 115. Returns all user actions with timestamps
+    Backend-->>JS: 116. Returns audit trail
+    JS-->>User: 117. Displays chronological audit log
+
+    User->>JS: 118. Clicks "Export for Regulatory Review"
+    JS->>Backend: 119. GET /api/reports/compliance_report.xlsx
+    Backend->>DB: 120. Gathers all compliance data
+    Backend->>Backend: 121. Generates Excel/PDF report
+    Backend-->>JS: 122. Returns downloadable file
+    JS->>User: 123. Triggers file download
+
+    Note over User,ERP: PHASE 10: CASH FLOW FORECASTING & DASHBOARD
+
+    User->>JS: 124. Accounting staff views Accounting dashboard
+    JS->>Backend: 125. GET /api/accounting/forecast
+    Backend->>DB: 126. Retrieves claim projections & payment history
+    Backend->>Backend: 127. Calculates:<br/>- Net Cash Flow = Inflow - Outflow<br/>- Confidence intervals (± margin)
+    Backend->>Backend: 128. Computes KPIs:<br/>- Total claims value<br/>- Total disbursed<br/>- Average processing days<br/>- Projected savings
+    Backend-->>JS: 129. Returns forecast data
+    JS-->>User: 130. Displays real-time dashboard with charts
+
+    Note over User,ERP: PHASE 11: DOCUMENT MANAGEMENT & REPORTING
+
+    User->>JS: 131. Navigates to Reports page
+    JS->>Backend: 132. GET /api/reports/claims.xlsx
+    Backend->>DB: 133. Retrieves all claims with filters
+    Backend->>Backend: 134. Generates Excel/PDF/CSV
+    Backend-->>JS: 135. Returns report file
+    JS->>User: 136. Downloads report
+
+    User->>JS: 137. Views document history
+    JS->>Backend: 138. GET /api/claims/:id/documents
+    Backend->>Backend: 139. Retrieves from uploads/downloads folders
+    Backend-->>JS: 140. Returns document list
+    JS-->>User: 141. Displays downloadable documents
+
 ## 📚 Related Resources
 
 - [HKFRS 17 Insurance Contracts – HKICPA](https://www.hkicpa.org.hk/en/Standards-setting/Standards/New-and-major-standards/New-and-Major-Standards/HKFRS-17-Insurance-Contracts)
