@@ -1089,6 +1089,18 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 
 ## 📐Data Flow and Logic Sequence
 
+The following diagram illustrates the end-to-end system flow — from authentication through claim submission, AI fraud detection, HKFRS 17 accounting, HKMA payment gateway integration, conversational AI, and audit compliance — directly mapping to the processes described throughout this documentation and validated by real-world implementations like the FWD x CCB bancassurance case.
+
+> **How to read this diagram:** The 8 phases are color-coded by functional area:
+> - 🔵 PHASE 1: Authentication & RBAC
+> - 🟢 PHASE 2: Claim Submission (Customer)
+> - 🟡 PHASE 3: AI Fraud Detection (Automatic)
+> - 🟠 PHASE 4: Claim Review Workflow
+> - 🔴 PHASE 5: HKFRS 17 Accounting
+> - 🟣 PHASE 6: Payment & HKMA Gateway
+> - ⚪ PHASE 7: AI Conversational Assistant
+> - 🟤 PHASE 8: Audit & Compliance
+
 ```mermaid
 flowchart TD
     subgraph PHASE1["PHASE 1: Authentication & RBAC"]
