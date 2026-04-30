@@ -1087,8 +1087,9 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 - This app adopts the **same abstraction design**: `HKMA` represents the **standard layer**, while deployment maps it to a specific bank (e.g., `CCB`).
 - This is precisely why this app **requires no core code changes when switching or adding banks** — as long as the bank follows the HKMA standard, seamless integration is possible.
 
-## Data Flow & Logic Sequence of This Code
+## Data Flow & Logic Sequence
 
+```mermaid
 sequenceDiagram
     participant User
     participant Browser as Web Browser
