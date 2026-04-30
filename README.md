@@ -1090,248 +1090,174 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 ## Data Flow & Logic Sequence
 
 ```mermaid
-sequenceDiagram
-    participant User
-    participant Browser as Web Browser
-    participant HTML as Page Structure (index.html)
-    participant CSS as Styling Rules (global.css)
-    participant JS as Frontend Logic (React/TSX)
-    participant Backend as Backend Server (Express/Node.js)
-    participant DB as PostgreSQL Database
-    participant Redis as Redis Cache (Session Memory)
-    participant AI as AI Services (OpenAI GPT + SerpApi)
-    participant HKMA as HKMA Payment Gateway (FPS API)
-    participant ERP as ERP System (SAP/Oracle Stub)
+## System Architecture & Data Flow
 
-    Note over User,ERP: PHASE 1: AUTHENTICATION & ROLE-BASED ACCESS
-
-    User->>Browser: 1. Opens http://localhost:5173
-    Browser->>Backend: GET request for `/`
-    Backend-->>Browser: Serves Page Structure (index.html)
-    Browser->>HTML: Parses DOM
-    HTML->>CSS: Requests Styling Rules
-    CSS-->>Browser: Provides styling
-    HTML->>JS: Requests Frontend Logic (React bundle)
-    JS-->>Browser: Provides React components
-    Browser-->>User: 2. Displays login page (English/Chinese)
-
-    User->>JS: 3. Enters credentials & selects language
-    JS->>Backend: 4. POST /api/auth/login with {email, password}
-    Backend->>DB: 5. Validates user credentials
-    DB-->>Backend: 6. Returns user role (Customer/Officer/Accounting/Manager)
-    Backend->>Backend: 7. Generates JWT token
-    Backend-->>JS: 8. Returns JWT + role + permissions
-    JS->>JS: 9. Stores token in localStorage/context
-    JS->>Redis: 10. Initializes session (chat history, user context)
-    Redis-->>JS: Session confirmed
-    JS-->>User: 11. Redirects to role-specific dashboard
-
-    Note over User,ERP: PHASE 2: CLAIM SUBMISSION (Customer Role)
-
-    User->>JS: 12. Clicks "New Claim" & selects policy
-    JS->>JS: 13. Displays multi-step claim form
-    User->>JS: 14. Enters claim details (date, description, amount)<br/>Uploads documents (PDF/JPG/PNG/DOC/DOCX)
-    JS->>JS: 15. Validates file size & formats
-    JS->>Backend: 16. POST /api/claims (multipart/form-data)
-    Backend->>Backend: 17. Creates claim with status "DRAFT"
-    Backend->>DB: 18. Stores claim record & document references
-    DB-->>Backend: Returns claim ID
-    Backend-->>JS: 19. Returns claim ID & initial draft
-    JS-->>User: 20. Displays draft claim with option to submit
-
-    User->>JS: 21. Reviews draft & clicks "Submit"
-    JS->>Backend: 22. POST /api/claims/:id/submit
-    Backend->>DB: 23. Updates status to "SUBMITTED"
-    Backend->>Backend: 24. Records timestamp in audit log
-    Backend-->>JS: 25. Confirmation
-    JS->>JS: 26. Triggers Socket.IO real-time update
-    JS-->>User: 27. "Claim submitted successfully"
-
-    Note over User,ERP: PHASE 3: AI-POWERED FRAUD DETECTION & VALIDATION (Automatic)
-
-    Backend->>Backend: 28. Triggers AI validation service (async)
-    
-    par Parallel AI Validation
-        Backend->>AI: 29a. Extracts vendor names from documents
-        AI->>AI: 29b. Calls SerpApi for Google Maps verification
-        AI-->>Backend: 29c. Returns vendor verification (rating, address, license)
-        
-        Backend->>AI: 30a. Sends claim details for fraud analysis
-        AI->>AI: 30b. Scans for 50+ fraud indicators
-        AI-->>Backend: 30c. Returns fraud risk score (0-100)
-        
-        Backend->>Backend: 31a. Calculates amount risk (25% weight)
-        Backend->>Backend: 31b. Calculates vendor risk (35% weight)
-        Backend->>Backend: 31c. Calculates document risk (20% weight)
-        Backend->>Backend: 31d. Calculates pattern risk (20% weight)
-    end
-    
-    Backend->>DB: 32. Stores comprehensive risk score & components
-    Backend->>Backend: 33. Determines risk level based on score:<br/>0-39: Low | 40-59: Medium<br/>60-79: High | 80-100: Critical
-    Backend->>Backend: 34. Auto-routes claim based on risk level<br/>Low → Fast track | High → SIU referral
-
-    Backend-->>JS: 35. Sends Socket.IO notification (fraud analysis complete)
-    JS-->>User: 36. Displays AI validation report with risk score
-
-    Note over User,ERP: PHASE 4: CLAIM REVIEW & WORKFLOW (Officer/Manager Role)
-
-    User->>JS: 37. Officer logs in & views assigned claims
-    JS->>Backend: 38. GET /api/claims (filtered by role)
-    Backend->>DB: 39. Retrieves claims with status "SUBMITTED"
-    DB-->>Backend: 40. Returns claims list
-    Backend-->>JS: 41. Returns claims with AI risk scores
-    JS-->>User: 42. Displays claims dashboard with risk indicators
-
-    User->>JS: 43. Officer selects claim & reviews details
-    JS->>Backend: 44. GET /api/claims/:id
-    Backend->>DB: 45. Retrieves full claim with documents
-    Backend-->>JS: 46. Returns claim + AI validation report
-    JS-->>User: 47. Displays claim detail with risk breakdown
-
-    alt Low Risk → Approve
-        User->>JS: 48a. Clicks "Approve" with notes
-        JS->>Backend: 49a. POST /api/claims/:id/transition with {status: "APPROVED"}
-        Backend->>DB: 50a. Updates status to "APPROVED"
-        Backend->>Backend: 51a. Records approval in audit trail
-        Backend->>Backend: 52a. Triggers payment creation
-        
-    else High Risk → Escalate
-        User->>JS: 48b. Clicks "Escalate" (for claims > threshold or fraud risk > 60)
-        JS->>Backend: 49b. POST /api/claims/:id/transition with {status: "ESCALATED"}
-        Backend->>DB: 50b. Updates status to "ESCALATED"
-        Backend-->>JS: 51b. Notifies manager dashboard
-        JS-->>User: 52b. "Claim escalated for manager review"
-        
-    else Insufficient Evidence → Reject
-        User->>JS: 48c. Clicks "Reject" with reason
-        JS->>Backend: 49c. POST /api/claims/:id/transition with {status: "REJECTED"}
-        Backend->>DB: 50c. Updates status to "REJECTED"
-        Backend->>Backend: 51c. Sends rejection notification
+```mermaid
+flowchart TD
+    subgraph PHASE1["PHASE 1: Authentication & RBAC"]
+        A1["1. User opens http://localhost:5173"] --> A2["2. Browser requests /"]
+        A2 --> A3["3. Backend serves index.html + React bundle"]
+        A3 --> A4["4. User sees login page"]
+        A4 --> A5["5. User enters credentials & selects language"]
+        A5 --> A6["6. POST /api/auth/login"]
+        A6 --> A7["7. Backend validates against PostgreSQL"]
+        A7 --> A8["8. JWT token generated with role"]
+        A8 --> A9["9. Redis session initialized (1hr TTL)"]
+        A9 --> A10["10. Redirect to role-specific dashboard"]
     end
 
-    Note over User,ERP: PHASE 5: HKFRS 17 ACCOUNTING & CSM CALCULATION
-
-    User->>JS: 53. Accounting staff navigates to HKFRS 17 page
-    JS->>Backend: 54. GET /api/hkfrs17/compliance
-    Backend->>DB: 55. Retrieves active policies & claims
-    DB-->>Backend: 56. Returns policy portfolio data
-    Backend->>Backend: 57. Calculates CSM components:<br/>- Interest Accretion = Opening CSM × Discount Rate<br/>- Amortization = (CSM + Interest) × Coverage %<br/>- Closing CSM = Opening + Interest - Amortization
-    Backend->>Backend: 58. Calculates LRC & LIC
-    Backend->>Backend: 59. Generates accounting journal entries:<br/>- Dr. Insurance finance expense | Cr. CSM<br/>- Dr. CSM | Cr. Insurance revenue<br/>- Dr. LIC | Cr. Cash (for payments)
-    Backend->>ERP: 60. Syncs journal entries to ERP (SAP/Oracle stub)
-    Backend-->>JS: 61. Returns HKFRS 17 compliance report
-    JS-->>User: 62. Displays CSM amortization table & journal entries
-
-    Note over User,ERP: PHASE 6: PAYMENT CREATION & HKMA GATEWAY
-
-    Backend->>Backend: 63. For approved claims, creates disbursement record
-    Backend->>DB: 64. Creates payment pending record
-    Backend->>Backend: 65. Calculates payout (applies tax/FX if configured)
-    
-    User->>JS: 66. Accounting staff views "Payment Pending" claims
-    JS->>Backend: 67. GET /api/accounting/disbursements/pending
-    Backend-->>JS: 68. Returns pending disbursements
-    JS-->>User: 69. Displays payment queue
-
-    User->>JS: 70. Selects claim & clicks "Process Payment"
-    JS->>Backend: 71. POST /api/accounting/disbursements/from-claim/:claimId
-    Backend->>Backend: 72. Creates disbursement with unique reference
-    Backend->>HKMA: 73. Submits payment via FPS Open API<br/>(or simulation if HKMA_OPENAPI_BASE_URL unset)
-    
-    alt HKMA Integration Active
-        HKMA-->>Backend: 74a. Returns transaction ID & status "PROCESSING"
-        Backend->>Backend: 75a. Polls HKMA for settlement confirmation
-        HKMA-->>Backend: 76a. Returns "COMPLETED" with settlement timestamp
-        Backend->>DB: 77a. Updates claim status to "PAID"
-        
-    else Simulation Mode
-        Backend->>Backend: 74b. Simulates payment processing
-        Backend->>DB: 75b. Updates claim status to "PAID"
+    subgraph PHASE2["PHASE 2: Claim Submission (Customer)"]
+        B1["11. Click 'New Claim' & select policy"] --> B2["12. Multi-step claim form displayed"]
+        B2 --> B3["13. Enter claim details (date, amount, description)"]
+        B3 --> B4["14. Upload documents (PDF/JPG/PNG/DOC/DOCX)"]
+        B4 --> B5["15. POST /api/claims (multipart/form-data)"]
+        B5 --> B6["16. Backend creates claim with status 'DRAFT'"]
+        B6 --> B7["17. Claim saved to PostgreSQL"]
+        B7 --> B8["18. Click 'Submit'"]
+        B8 --> B9["19. POST /api/claims/:id/submit"]
+        B9 --> B10["20. Status updated to 'SUBMITTED'"]
+        B10 --> B11["21. Audit trail recorded"]
+        B11 --> B12["22. Socket.IO notification sent"]
     end
-    
-    Backend->>Backend: 78. Records payment in audit trail
-    Backend->>ERP: 79. Syncs payment to ERP (GL update)
-    Backend-->>JS: 80. Sends Socket.IO notification (claim paid)
-    JS-->>User: 81. Displays "Payment completed" confirmation
 
-    Note over User,ERP: PHASE 7: AI CONVERSATIONAL ASSISTANT (With Context Memory)
+    subgraph PHASE3["PHASE 3: AI Fraud Detection (Automatic)"]
+        C1["23. Backend triggers AI validation service"] --> C2["24. Vendor extraction from documents"]
+        C2 --> C3["25. SerpApi Google Maps verification"]
+        C3 --> C4["26. Returns rating, address, license"]
+        
+        C1 --> C5["27. Scan for 50+ fraud indicators"]
+        C5 --> C6["28. Calculate 4 component scores"]
+        
+        C6 --> C7["Amount Risk (25%)"]
+        C6 --> C8["Vendor Risk (35%)"]
+        C6 --> C9["Document Risk (20%)"]
+        C6 --> C10["Pattern Risk (20%)"]
+        
+        C7 --> C11["29. Total fraud score 0-100"]
+        C8 --> C11
+        C9 --> C11
+        C10 --> C11
+        
+        C11 --> C12["30. Determine risk level"]
+        C12 --> C13{"Score 0-39: Low"}
+        C12 --> C14{"Score 40-59: Medium"}
+        C12 --> C15{"Score 60-79: High"}
+        C12 --> C16{"Score 80-100: Critical"}
+        
+        C13 --> C17["31. Auto-route to fast track"]
+        C15 --> C18["31. Auto-route to SIU referral"]
+    end
 
-    User->>JS: 82. Navigates to AI Assistant tab
-    JS->>Backend: 83. GET session from Redis
-    Redis-->>JS: 84. Returns conversation history (last 20 messages)
-    JS-->>User: 85. Displays chat interface with context
+    subgraph PHASE4["PHASE 4: Claim Review Workflow"]
+        D1["32. Officer views dashboard"] --> D2["33. GET /api/claims (filtered by role)"]
+        D2 --> D3["34. Claims with risk scores displayed"]
+        D3 --> D4["35. Officer selects claim"]
+        D4 --> D5["36. GET /api/claims/:id"]
+        D5 --> D6["37. Full claim with AI report shown"]
+        
+        D6 --> D7{"38. Decision based on risk"}
+        
+        D7 -->|Low Risk| D8["Approve with notes"]
+        D8 --> D9["POST /api/claims/:id/transition"]
+        D9 --> D10["Status: APPROVED"]
+        D10 --> D11["Audit trail: approval recorded"]
+        
+        D7 -->|High Risk| D12["Escalate to Manager"]
+        D12 --> D13["POST /api/claims/:id/transition"]
+        D13 --> D14["Status: ESCALATED"]
+        D14 --> D15["Manager dashboard notified"]
+        
+        D7 -->|Invalid| D16["Reject with reason"]
+        D16 --> D17["POST /api/claims/:id/transition"]
+        D17 --> D18["Status: REJECTED"]
+    end
 
-    User->>JS: 86. Types "Show me CLM-2026-0103"
-    JS->>Backend: 87. POST /api/ai/chat with {message, sessionId}
-    Backend->>Redis: 88. Retrieves conversation history
-    Backend->>AI: 89. Sends prompt + history to GPT-4
-    AI-->>Backend: 90. Returns formatted response with claim details
-    Backend->>Redis: 91. Stores updated conversation history (1hr TTL)
-    Backend-->>JS: 92. Returns AI response
-    JS-->>User: 93. Displays claim details & risk analysis
+    subgraph PHASE5["PHASE 5: HKFRS 17 Accounting"]
+        E1["39. Accounting staff opens HKFRS 17 page"] --> E2["40. GET /api/hkfrs17/compliance"]
+        E2 --> E3["41. PostgreSQL returns policies & claims"]
+        E3 --> E4["42. Backend calculates CSM"]
+        E4 --> E5["Interest Accretion = Opening CSM × Rate"]
+        E5 --> E6["Amortization = (CSM + Interest) × Coverage%"]
+        E6 --> E7["Closing CSM = Opening + Interest - Amortization"]
+        E7 --> E8["43. Calculate LRC & LIC"]
+        E8 --> E9["44. Generate journal entries"]
+        E9 --> E10["Dr. Insurance finance expense | Cr. CSM"]
+        E9 --> E11["Dr. CSM | Cr. Insurance revenue"]
+        E9 --> E12["Dr. LIC | Cr. Cash"]
+        E10 --> E13["45. Sync to SAP/Oracle (GL)"]
+        E11 --> E13
+        E12 --> E13
+    end
 
-    User->>JS: 94. Types "Show me the vendors for that claim"
-    JS->>Backend: 95. POST /api/ai/chat with follow-up
-    Backend->>Redis: 96. Retrieves history (includes previous claim context)
-    Backend->>AI: 97. Sends prompt with context reference "that claim"
-    AI-->>Backend: 98. Returns vendor information (Hudson Valley Towing)
-    Backend->>Redis: 99. Updates history again
-    Backend-->>JS: 100. Returns vendor details
-    JS-->>User: 101. Displays verified vendor information
+    subgraph PHASE6["PHASE 6: Payment & HKMA Gateway"]
+        F1["46. Approved claim triggers payment"] --> F2["47. Create disbursement record"]
+        F2 --> F3["48. Save to PostgreSQL (payment pending)"]
+        F3 --> F4["49. Accounting staff views pending payments"]
+        F4 --> F5["50. GET /api/accounting/disbursements/pending"]
+        F5 --> F6["51. Select claim & click 'Process Payment'"]
+        F6 --> F7["52. POST /api/accounting/disbursements/from-claim/:claimId"]
+        F7 --> F8["53. Create unique disbursement reference"]
+        F8 --> F9["54. Submit to HKMA FPS API"]
+        
+        F9 --> F10{"55. Mode?"}
+        F10 -->|Real API| F11["HKMA returns transaction ID"]
+        F11 --> F12["Poll for settlement"]
+        F12 --> F13["Status: COMPLETED"]
+        
+        F10 -->|Simulation| F14["Mock payment processed"]
+        F14 --> F15["Status: COMPLETED"]
+        
+        F13 --> F16["56. Claim status: PAID"]
+        F15 --> F16
+        F16 --> F17["57. Audit trail: payment recorded"]
+        F17 --> F18["58. Sync to SAP/Oracle (GL update)"]
+        F18 --> F19["59. Socket.IO notification sent"]
+    end
 
-    Note over User,ERP: PHASE 8: NATURAL LANGUAGE QUERY (Stateless)
+    subgraph PHASE7["PHASE 7: AI Conversational Assistant"]
+        G1["60. User opens AI Assistant tab"] --> G2["61. GET session from Redis"]
+        G2 --> G3["62. Returns last 20 messages (1hr TTL)"]
+        G3 --> G4["63. Chat interface displayed"]
+        G4 --> G5["64. User types: 'Show me CLM-2026-0103'"]
+        G5 --> G6["65. POST /api/ai/chat with sessionId"]
+        G6 --> G7["66. Backend retrieves conversation history"]
+        G7 --> G8["67. Send prompt + history to GPT-4"]
+        G8 --> G9["68. GPT-4 returns claim details + risk analysis"]
+        G9 --> G10["69. Store updated history in Redis"]
+        G10 --> G11["70. Response displayed to user"]
+        
+        G11 --> G12["71. User asks: 'Show me vendors for that claim'"]
+        G12 --> G13["72. Backend retrieves history WITH context"]
+        G13 --> G14["73. GPT-4 understands 'that claim' reference"]
+        G14 --> G15["74. Returns vendor verification details"]
+        G15 --> G16["75. History updated again"]
+        G16 --> G17["76. Vendor info displayed"]
+    end
 
-    User->>JS: 102. Navigates to Natural Language Query tab
-    User->>JS: 103. Types "Show me all pending claims"
-    JS->>Backend: 104. POST /api/ai/nl-query with {query}
-    Backend->>Backend: 105. Parses query (no Redis/history)
-    Backend->>AI: 106. Converts to SQL (text-to-query)
-    AI-->>Backend: 107. Returns generated SQL
-    Backend->>DB: 108. Executes parameterized query
-    DB-->>Backend: 109. Returns results
-    Backend-->>JS: 110. Returns tabular results + SQL
-    JS-->>User: 111. Displays results table (no follow-up context)
+    subgraph PHASE8["PHASE 8: Audit & Compliance"]
+        H1["77. Manager opens Audit Trail"] --> H2["78. GET /api/audit with filters"]
+        H2 --> H3["79. PostgreSQL returns immutable log"]
+        H3 --> H4["80. All user actions with timestamps"]
+        H4 --> H5["81. Chronological audit log displayed"]
+        H5 --> H6["82. Click 'Export for Regulatory Review'"]
+        H6 --> H7["83. GET /api/reports/compliance_report.xlsx"]
+        H7 --> H8["84. Backend gathers all compliance data"]
+        H8 --> H9["85. Generate Excel/PDF report"]
+        H9 --> H10["86. File download triggered"]
+    end
 
-    Note over User,ERP: PHASE 9: REGULATORY COMPLIANCE & AUDIT
-
-    User->>JS: 112. Manager navigates to Audit Trail
-    JS->>Backend: 113. GET /api/audit (with filters)
-    Backend->>DB: 114. Retrieves immutable audit log
-    DB-->>Backend: 115. Returns all user actions with timestamps
-    Backend-->>JS: 116. Returns audit trail
-    JS-->>User: 117. Displays chronological audit log
-
-    User->>JS: 118. Clicks "Export for Regulatory Review"
-    JS->>Backend: 119. GET /api/reports/compliance_report.xlsx
-    Backend->>DB: 120. Gathers all compliance data
-    Backend->>Backend: 121. Generates Excel/PDF report
-    Backend-->>JS: 122. Returns downloadable file
-    JS->>User: 123. Triggers file download
-
-    Note over User,ERP: PHASE 10: CASH FLOW FORECASTING & DASHBOARD
-
-    User->>JS: 124. Accounting staff views Accounting dashboard
-    JS->>Backend: 125. GET /api/accounting/forecast
-    Backend->>DB: 126. Retrieves claim projections & payment history
-    Backend->>Backend: 127. Calculates:<br/>- Net Cash Flow = Inflow - Outflow<br/>- Confidence intervals (± margin)
-    Backend->>Backend: 128. Computes KPIs:<br/>- Total claims value<br/>- Total disbursed<br/>- Average processing days<br/>- Projected savings
-    Backend-->>JS: 129. Returns forecast data
-    JS-->>User: 130. Displays real-time dashboard with charts
-
-    Note over User,ERP: PHASE 11: DOCUMENT MANAGEMENT & REPORTING
-
-    User->>JS: 131. Navigates to Reports page
-    JS->>Backend: 132. GET /api/reports/claims.xlsx
-    Backend->>DB: 133. Retrieves all claims with filters
-    Backend->>Backend: 134. Generates Excel/PDF/CSV
-    Backend-->>JS: 135. Returns report file
-    JS->>User: 136. Downloads report
-
-    User->>JS: 137. Views document history
-    JS->>Backend: 138. GET /api/claims/:id/documents
-    Backend->>Backend: 139. Retrieves from uploads/downloads folders
-    Backend-->>JS: 140. Returns document list
-    JS-->>User: 141. Displays downloadable documents
+    %% Connections between phases
+    A10 --> B1
+    B12 --> C1
+    C17 --> D1
+    C18 --> D1
+    D10 --> E1
+    D10 --> F1
+    D14 --> D1
+    D18 --> D1
+    E13 --> H1
+    F19 --> H1
+    G17 --> H1
 
 ## 📚 Related Resources
 
