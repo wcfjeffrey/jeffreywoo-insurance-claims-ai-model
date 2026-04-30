@@ -1090,9 +1090,6 @@ This real‑world case illustrates the design logic behind `HKMA_OPENAPI_BASE_UR
 ## Data Flow & Logic Sequence
 
 ```mermaid
-## System Architecture & Data Flow
-
-```mermaid
 flowchart TD
     subgraph PHASE1["PHASE 1: Authentication & RBAC"]
         A1["1. User opens http://localhost:5173"] --> A2["2. Browser requests /"]
